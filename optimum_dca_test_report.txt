@@ -1,0 +1,38 @@
+================================================================================
+OPTIMUM DCA IMPLEMENTATION VALIDATION REPORT
+================================================================================
+Generated on: 2025-09-22 11:53:19
+
+DATA SUMMARY:
+  Bitcoin price records: 5262
+  Expected weekly records: 589
+  Expected WDCA records: 211
+
+WEEKLY TABLE VALIDATION:
+  Overall Result: ✗ FAIL
+  Tests Passed: 0/7
+  Success Rate: 0.0%
+    weekly_close: ✗ (534 records, 52.6% pass rate)
+    weekly_volume: ✗ (533 records, 31.9% pass rate)
+    rolling_vol: ✗ (533 records, 23.5% pass rate)
+    vwap_ma: ✗ (533 records, 93.8% pass rate)
+    multiple_calc: ✗ (533 records, 70.7% pass rate)
+    lower_2sd: ✗ (533 records, 72.6% pass rate)
+    upper_2sd: ✗ (533 records, 76.7% pass rate)
+
+WDCA SCHEDULE VALIDATION:
+  ✗ FAILED - No summary available
+
+OVERALL CONCLUSION:
+  ✗ FAILURE: The Python implementation has significant discrepancies
+    from the Excel calculations that require investigation.
+    - Weekly table calculations need attention
+    - WDCA schedule calculations need attention
+
+RECOMMENDATIONS:
+  • Investigate discrepancies in failing test cases
+  • Review calculation formulas against Excel implementation
+  • Consider improving data preprocessing steps
+  • Re-test after fixing identified issues
+
+================================================================================
