@@ -146,12 +146,17 @@ This analysis provides:
 ## 📁 Implementation Files
 
 ### Core Implementation
-- `optimum_dca_analyzer.py`: Main standalone implementation
+- `src/optimum_dca_analyzer.py`: Main standalone implementation
 - `data/bitcoin_prices.csv`: Source price data (only dependency)
+- `examples/quick_start.py`: Simple usage example
 
 ### Validation Files  
-- `excel_validator.py`: Excel validation and comparison tool
-- `FINAL_STANDALONE_DCA_REPORT.md`: This comprehensive report
+- `tools/excel_validator.py`: Excel validation and comparison tool
+- `docs/analysis_report.md`: This comprehensive report
+
+### Reference Files
+- `reference/excel_file.xlsx`: Original Excel strategy
+- `reference/legacy_implementation.py`: Legacy code implementation
 
 ---
 

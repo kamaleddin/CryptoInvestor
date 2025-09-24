@@ -27,7 +27,11 @@ pip install pandas numpy openpyxl
 
 3. **Run the analysis**:
 ```bash
-python optimum_dca_analyzer.py
+# Quick start example
+python examples/quick_start.py
+
+# Or run the main analyzer directly
+python src/optimum_dca_analyzer.py
 ```
 
 ### Expected Output
@@ -48,14 +52,36 @@ python optimum_dca_analyzer.py
 
 ## 📁 Key Files
 
+## 📂 Project Structure
+
+```
+CryptoInvestor/
+├── src/                               # 💻 Source code
+│   └── optimum_dca_analyzer.py        #     Main DCA implementation
+├── tools/                             # 🔧 Utility tools  
+│   └── excel_validator.py             #     Excel validation tool
+├── data/                              # 📊 Data files
+│   └── bitcoin_prices.csv             #     Historical Bitcoin prices
+├── docs/                              # 📚 Documentation
+│   └── analysis_report.md             #     Comprehensive analysis
+├── reference/                         # 📋 Reference materials
+│   ├── excel_file.xlsx                #     Original Excel strategy
+│   └── legacy_implementation.py       #     Legacy code
+├── examples/                          # 🎯 Usage examples
+│   └── quick_start.py                 #     Simple usage example
+├── README.md                          # 📖 Main documentation
+└── .cursorrules                       # 🧭 Development guidelines
+```
+
 | File | Purpose |
 |------|---------|
-| `optimum_dca_analyzer.py` | **Main implementation** - Standalone DCA analysis |
+| `src/optimum_dca_analyzer.py` | **Main implementation** - Standalone DCA analysis |
+| `examples/quick_start.py` | **Quick start** - Simple usage example |
 | `data/bitcoin_prices.csv` | **Data source** - Historical Bitcoin prices (only dependency) |
-| `FINAL_STANDALONE_DCA_REPORT.md` | **Analysis report** - Comprehensive results and insights |
-| `excel_validator.py` | **Validation tool** - Compares against Excel reference |
-| `legacy_optimum_dca.py` | **Legacy code** - Original complex implementation |
-| `Optimum DCA clubhouse.xlsx` | **Reference Excel** - Original strategy implementation |
+| `docs/analysis_report.md` | **Analysis report** - Comprehensive results and insights |
+| `tools/excel_validator.py` | **Validation tool** - Compares against Excel reference |
+| `reference/legacy_implementation.py` | **Legacy code** - Original complex implementation |
+| `reference/excel_file.xlsx` | **Reference Excel** - Original strategy implementation |
 
 ## 🎯 How It Works
 
@@ -91,7 +117,7 @@ Where:
 
 ## 🔧 Configuration
 
-Modify key parameters in `optimum_dca_analyzer.py`:
+Modify key parameters in `src/optimum_dca_analyzer.py`:
 
 ```python
 # Investment settings

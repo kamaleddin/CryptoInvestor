@@ -14,14 +14,15 @@ This file contains guidelines and best practices for working with the CryptoInve
 ## 📁 Key Files & Their Purpose
 
 ### Production Files (DO NOT DELETE)
-- `optimum_dca_analyzer.py` - **MAIN IMPLEMENTATION** - Standalone DCA with exact Excel matches
+- `src/optimum_dca_analyzer.py` - **MAIN IMPLEMENTATION** - Standalone DCA with exact Excel matches
 - `data/bitcoin_prices.csv` - **ONLY DATA DEPENDENCY** - Historical Bitcoin prices with volume
-- `FINAL_STANDALONE_DCA_REPORT.md` - Comprehensive analysis report
-- `excel_validator.py` - Validation tool (reads Excel directly for verification)
-- `Optimum DCA clubhouse.xlsx` - Reference Excel file (rows 198-201 are target summary)
+- `docs/analysis_report.md` - Comprehensive analysis report
+- `tools/excel_validator.py` - Validation tool (reads Excel directly for verification)
+- `reference/excel_file.xlsx` - Reference Excel file (rows 198-201 are target summary)
+- `examples/quick_start.py` - Simple usage example
 
 ### Legacy/Reference Files
-- `legacy_optimum_dca.py` - Original implementation (complex, Excel-dependent)
+- `reference/legacy_implementation.py` - Original implementation (complex, Excel-dependent)
 - `README.md` - Documentation (updated with user guide + technical details)
 
 ## 🔧 Critical Constants & Formulas
@@ -107,7 +108,7 @@ date,Price,Daily Volume
 ## 🚀 Development Workflow
 
 ### For New Features
-1. **Always backup** the working `optimum_dca_analyzer.py`
+1. **Always backup** the working `src/optimum_dca_analyzer.py`
 2. **Create separate test files** for experiments (prefix with `test_` or `debug_`)
 3. **Validate against Excel** before integrating changes
 4. **Clean up debug files** after successful implementation
@@ -186,10 +187,11 @@ A successful implementation should:
 ## 🧹 Cleanup Guidelines
 
 **Always keep**:
-- `optimum_dca_analyzer.py` (main implementation)
+- `src/optimum_dca_analyzer.py` (main implementation)
 - `data/bitcoin_prices.csv` (data source)
-- `FINAL_STANDALONE_DCA_REPORT.md` (results)
-- `excel_validator.py` (validation)
+- `docs/analysis_report.md` (results)
+- `tools/excel_validator.py` (validation)
+- `examples/quick_start.py` (usage example)
 - `README.md` (documentation)
 
 **Clean up after development**:
