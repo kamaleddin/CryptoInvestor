@@ -146,11 +146,11 @@ This analysis provides:
 ## 📁 Implementation Files
 
 ### Core Implementation
-- `calibrated_standalone_dca.py`: Main standalone implementation
+- `optimum_dca_analyzer.py`: Main standalone implementation
 - `data/bitcoin_prices.csv`: Source price data (only dependency)
 
 ### Validation Files  
-- `check_excel_summary.py`: Excel target value verification
+- `excel_validator.py`: Excel validation and comparison tool
 - `FINAL_STANDALONE_DCA_REPORT.md`: This comprehensive report
 
 ---

@@ -14,14 +14,14 @@ This file contains guidelines and best practices for working with the CryptoInve
 ## 📁 Key Files & Their Purpose
 
 ### Production Files (DO NOT DELETE)
-- `calibrated_standalone_dca.py` - **MAIN IMPLEMENTATION** - Standalone DCA with exact Excel matches
+- `optimum_dca_analyzer.py` - **MAIN IMPLEMENTATION** - Standalone DCA with exact Excel matches
 - `data/bitcoin_prices.csv` - **ONLY DATA DEPENDENCY** - Historical Bitcoin prices with volume
 - `FINAL_STANDALONE_DCA_REPORT.md` - Comprehensive analysis report
-- `final_perfect_dca_comparison.py` - Validation tool (reads Excel directly for verification)
+- `excel_validator.py` - Validation tool (reads Excel directly for verification)
 - `Optimum DCA clubhouse.xlsx` - Reference Excel file (rows 198-201 are target summary)
 
 ### Legacy/Reference Files
-- `optimum_dca.py` - Original implementation (complex, Excel-dependent)
+- `legacy_optimum_dca.py` - Original implementation (complex, Excel-dependent)
 - `README.md` - Documentation (updated with user guide + technical details)
 
 ## 🔧 Critical Constants & Formulas
@@ -107,7 +107,7 @@ date,Price,Daily Volume
 ## 🚀 Development Workflow
 
 ### For New Features
-1. **Always backup** the working `calibrated_standalone_dca.py`
+1. **Always backup** the working `optimum_dca_analyzer.py`
 2. **Create separate test files** for experiments (prefix with `test_` or `debug_`)
 3. **Validate against Excel** before integrating changes
 4. **Clean up debug files** after successful implementation
@@ -186,10 +186,10 @@ A successful implementation should:
 ## 🧹 Cleanup Guidelines
 
 **Always keep**:
-- `calibrated_standalone_dca.py` (main implementation)
+- `optimum_dca_analyzer.py` (main implementation)
 - `data/bitcoin_prices.csv` (data source)
 - `FINAL_STANDALONE_DCA_REPORT.md` (results)
-- `final_perfect_dca_comparison.py` (validation)
+- `excel_validator.py` (validation)
 - `README.md` (documentation)
 
 **Clean up after development**:

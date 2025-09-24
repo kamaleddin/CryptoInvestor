@@ -27,7 +27,7 @@ pip install pandas numpy openpyxl
 
 3. **Run the analysis**:
 ```bash
-python calibrated_standalone_dca.py
+python optimum_dca_analyzer.py
 ```
 
 ### Expected Output
@@ -50,10 +50,11 @@ python calibrated_standalone_dca.py
 
 | File | Purpose |
 |------|---------|
-| `calibrated_standalone_dca.py` | **Main implementation** - Standalone DCA analysis |
+| `optimum_dca_analyzer.py` | **Main implementation** - Standalone DCA analysis |
 | `data/bitcoin_prices.csv` | **Data source** - Historical Bitcoin prices (only dependency) |
 | `FINAL_STANDALONE_DCA_REPORT.md` | **Analysis report** - Comprehensive results and insights |
-| `final_perfect_dca_comparison.py` | **Validation tool** - Compares against Excel reference |
+| `excel_validator.py` | **Validation tool** - Compares against Excel reference |
+| `legacy_optimum_dca.py` | **Legacy code** - Original complex implementation |
 | `Optimum DCA clubhouse.xlsx` | **Reference Excel** - Original strategy implementation |
 
 ## 🎯 How It Works
@@ -90,7 +91,7 @@ Where:
 
 ## 🔧 Configuration
 
-Modify key parameters in `calibrated_standalone_dca.py`:
+Modify key parameters in `optimum_dca_analyzer.py`:
 
 ```python
 # Investment settings
