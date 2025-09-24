@@ -154,15 +154,17 @@ class OptimumDCATestSuite:
         df = df.dropna(subset=['trade_date'])
         df = df[df['trade_date'].astype(str).str.strip() != '']
         
-        # Parse dates
+        # Parse dates - handle both M-D-YYYY and MM-DD-YYYY formats
         try:
-            df['trade_date'] = pd.to_datetime(df['trade_date'], format='%m-%d-%Y').dt.date
-        except:
-            try:
-                df['trade_date'] = pd.to_datetime(df['trade_date']).dt.date
-            except:
-                print("Warning: Could not parse dates in WDCA data")
-                return df
+            # First try the format without leading zeros (1-10-2022)
+            df['trade_date'] = pd.to_datetime(df['trade_date'], format='%m-%d-%Y', errors='coerce').dt.date
+            # For any that failed, try again with flexible parsing
+            mask = pd.isna(df['trade_date'])
+            if mask.any():
+                df.loc[mask, 'trade_date'] = pd.to_datetime(df.loc[mask, 'trade_date'].astype(str), infer_datetime_format=True).dt.date
+        except Exception as e:
+            print(f"Warning: Could not parse dates in WDCA data: {e}")
+            return df
         
         # Clean numeric columns
         numeric_cols = ['week', 'btc_price', 'pct_change_from_first',
@@ -177,11 +179,23 @@ class OptimumDCATestSuite:
             if col in df.columns:
                 df[col] = self._clean_numeric_column(df[col])
         
-        # Convert percentage columns
-        pct_cols = ['pct_change_from_first', 'investment_multiple_optimum', 'rolling_weekly_pnl']
+        # Convert percentage columns - but check if they're already in decimal format
+        pct_cols = ['pct_change_from_first', 'rolling_weekly_pnl']
         for col in pct_cols:
             if col in df.columns:
-                df[col] = self._convert_percentage(df[col])
+                # Check if values are likely already percentages (e.g., -12.33 instead of -0.1233)
+                sample = df[col].dropna()
+                if len(sample) > 0:
+                    mean_abs = abs(sample).mean()
+                    # If mean absolute value > 1, likely already in percentage format
+                    if mean_abs > 1:
+                        df[col] = df[col] / 100
+                    else:
+                        df[col] = self._convert_percentage(df[col])
+        
+        # investment_multiple_optimum needs special handling as it can be >100%
+        if 'investment_multiple_optimum' in df.columns:
+            df['investment_multiple_optimum'] = self._convert_percentage(df['investment_multiple_optimum'])
         
         return df
     

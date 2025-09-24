@@ -29,10 +29,11 @@ def _is_monday(d: date) -> bool:
     # Monday == 0 in Python
     return pd.Timestamp(d).weekday() == 0
 
-
+#Early Monday Morning has the best price and volume, so we use it as the anchor
 def _monday_on_or_after(d: date) -> date:
     ts = pd.Timestamp(d)
     return (ts + pd.offsets.Week(weekday=0)).date() if ts.weekday() != 0 else ts.date()
+
 
 
 def _last_non_nan(series: pd.Series) -> Optional[float]:
@@ -136,8 +137,10 @@ def compute_weekly_table(
     out["weekly_close"] = [weekly_close_for(d) for d in out["date"]]
 
     def weekly_volume_for(anchor: date) -> float:
-        start = (pd.Timestamp(anchor) - pd.Timedelta(days=7)).date()
-        end = (pd.Timestamp(anchor) - pd.Timedelta(days=1)).date()
+        # Excel appears to sum the volume for the anchor date and the 6 days before it
+        # This gives us a 7-day window ending on the anchor date
+        start = (pd.Timestamp(anchor) - pd.Timedelta(days=6)).date()
+        end = anchor
         window = vol_series.loc[(vol_series.index >= start) & (vol_series.index <= end)]
         if window.empty:
             return np.nan
@@ -183,16 +186,25 @@ def compute_weekly_table(
 
     rolling_vol = []
     for i in range(len(out)):
-        # D indices start at 0; in the sheet D3 is the first 'previous' cell used for stdev.
-        # We'll treat the first non-NaN return as start.
-        window_returns = out.loc[:i, "weekly_return"].values
-        non_nan = window_returns[~np.isnan(window_returns)]
-        if i <= 13:  # first 14 rows: running
-            rolling_vol.append(stdev_s(non_nan))
-        else:        # from 15th row (0-based i=14) onward: 14-week window
-            last14 = out.loc[max(0, i - 13):i, "weekly_return"].values
+        if i == 0:
+            # First row has no previous data, so volatility is NaN
+            rolling_vol.append(np.nan)
+        elif i < 14:  # first 14 rows (indices 0-13): running window
+            # Use all available returns from the start up to current row (inclusive)
+            window_returns = out.loc[:i, "weekly_return"].values
+            non_nan = window_returns[~np.isnan(window_returns)]
+            if len(non_nan) >= 2:  # Need at least 2 values for stdev
+                rolling_vol.append(stdev_s(non_nan))
+            else:
+                rolling_vol.append(np.nan)
+        else:        # from 15th row (0-based i=14) onward: 14-week rolling window
+            # Use exactly 14 most recent returns including current row
+            last14 = out.loc[i-13:i, "weekly_return"].values
             last14 = last14[~np.isnan(last14)]
-            rolling_vol.append(stdev_s(last14))
+            if len(last14) >= 2:
+                rolling_vol.append(stdev_s(last14))
+            else:
+                rolling_vol.append(np.nan)
     out["rolling_vol"] = rolling_vol
 
     # G: Weekly Weighted Volume = B * C
