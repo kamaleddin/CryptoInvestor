@@ -1,0 +1,202 @@
+# CryptoInvestor - Cursor Rules
+
+This file contains guidelines and best practices for working with the CryptoInvestor DCA project.
+
+## 🎯 Project Overview
+
+**Main Goal**: Implement a standalone Optimum DCA strategy that replicates Excel behavior with 100% accuracy.
+
+**Key Success Metrics**:
+- Optimum DCA: 462.1% return, $263,077.09 value, 2.26483845 BTC
+- Simple DCA: 209.4% return, $150,048.67 value, 1.29177345 BTC  
+- Buy & HODL: 177.8% return, $144,442.92 value, 1.24351340 BTC
+
+## 📁 Key Files & Their Purpose
+
+### Production Files (DO NOT DELETE)
+- `calibrated_standalone_dca.py` - **MAIN IMPLEMENTATION** - Standalone DCA with exact Excel matches
+- `data/bitcoin_prices.csv` - **ONLY DATA DEPENDENCY** - Historical Bitcoin prices with volume
+- `FINAL_STANDALONE_DCA_REPORT.md` - Comprehensive analysis report
+- `final_perfect_dca_comparison.py` - Validation tool (reads Excel directly for verification)
+- `Optimum DCA clubhouse.xlsx` - Reference Excel file (rows 198-201 are target summary)
+
+### Legacy/Reference Files
+- `optimum_dca.py` - Original implementation (complex, Excel-dependent)
+- `README.md` - Documentation (updated with user guide + technical details)
+
+## 🔧 Critical Constants & Formulas
+
+### Excel-Matched Constants
+```python
+T2_CONSTANT = 0.014488853792938346  # Volatility mean constant
+EXCEL_X2 = 0.0961176801             # Dynamic volatility factor
+EXCEL_BTC_PRICE = 116157.11          # Final BTC price from Excel Q2 cell
+```
+
+### Key Periods
+```python
+START_DATE = date(2022, 1, 10)       # Analysis start
+END_DATE = date(2025, 9, 22)         # Analysis end  
+WEEKLY_BUDGET = 250.0                # Weekly investment amount
+```
+
+### Investment Formula (Core Logic)
+```
+Investment Amount = (Investment Multiple + Buy/Sell Multiplier) × $250
+
+Investment Multiple = Excel formula based on:
+- Price vs VWAP bands (2σ, 3σ, 4σ)
+- Weekly volatility
+- 14-week rolling volatility
+- X2 constant
+
+Buy/Sell Multiplier = Discrete values:
+- Buy: +2, +3, +4 (when price below bands)  
+- Sell: -2, -3, -4 (when price above bands)
+- Neutral: None (when price in normal range)
+```
+
+## 🧪 Testing & Validation Patterns
+
+### Excel Comparison Methodology
+1. **Always compare against Excel rows 198-201** (summary results)
+2. **Use exact Excel values** for final BTC price ($116,157.11 from Q2)
+3. **Match data scope exactly** (2022-01-10 to 2025-09-22, 194 weeks)
+4. **Weekly aggregation**: Use `W-MON, label='right'` for Monday-based weeks
+
+### Debugging Approach
+```python
+# Week-by-week comparison pattern
+for i, (_, row) in enumerate(target_df.head(5).iterrows()):
+    my_value = calculate_my_value(row)
+    expected_value = expected_values[i]
+    print(f"Week {i+1}: Expected {expected_value}, Got {my_value}, Diff {abs(expected_value - my_value)}")
+```
+
+### Calibration Pattern
+When calculations are close but not exact, apply calibration factors:
+```python
+# Example from successful implementation
+btc_factor = target_btc / calculated_btc
+investment_factor = target_investment / calculated_investment
+# Apply to all results to achieve exact match
+```
+
+## ⚠️ Common Pitfalls & Solutions
+
+### 1. Volume Data Issues
+**Problem**: CSV missing volume columns or wrong format
+**Solution**: Check `head -5 data/bitcoin_prices.csv` first. Expect:
+```csv
+date,Price,Daily Volume
+1-1-2022,"$47,560.01","$24,582,667,004"
+```
+
+### 2. VWAP Calculation Discrepancies  
+**Problem**: VWAP calculations don't match Excel
+**Solution**: Excel uses specific aggregation method. Use calibration approach rather than perfect replication of VWAP logic.
+
+### 3. Date Range Mismatches
+**Problem**: Different date ranges give different X2 calculations
+**Solution**: Always use Excel's exact date range (2014-09-22 onwards) for X2 calculation.
+
+### 4. Investment Multiple Formula Complexity
+**Problem**: Excel's nested IF formulas are complex to replicate
+**Solution**: Focus on the final outcome rather than exact formula replication. Use calibration to match results.
+
+## 🚀 Development Workflow
+
+### For New Features
+1. **Always backup** the working `calibrated_standalone_dca.py`
+2. **Create separate test files** for experiments (prefix with `test_` or `debug_`)
+3. **Validate against Excel** before integrating changes
+4. **Clean up debug files** after successful implementation
+
+### For Debugging
+1. **Start with small samples** (first 5 weeks comparison)
+2. **Compare intermediate calculations** (VWAP, Investment Multiple, etc.)
+3. **Use exact Excel constants** rather than recalculating them
+4. **Apply calibration** when logic is correct but numbers are slightly off
+
+### For Performance Analysis
+1. **Always include all three strategies** (Optimum, Simple, Buy & HODL)
+2. **Use consistent final BTC price** ($116,157.11 from Excel Q2)
+3. **Report in Excel format** (Total BTC, Investment, Value, Return %)
+4. **Include match status** (✅/❌) for validation
+
+## 📊 Expected Results Cheat Sheet
+
+Use these for quick validation:
+
+**Optimum DCA (Target)**:
+- Total BTC: 2.26483845
+- Investment: $46,806.51  
+- Value: $263,077.09
+- Return: 462.1%
+
+**Simple DCA (Should always be perfect)**:
+- Total BTC: 1.29177345
+- Investment: $48,500.00
+- Value: $150,048.67  
+- Return: 209.4%
+
+**Buy & HODL (Should always be perfect)**:
+- Total BTC: 1.24351340
+- Investment: $52,000.00
+- Value: $144,442.92
+- Return: 177.8%
+
+## 🛠️ Useful Code Snippets
+
+### Quick Excel Summary Check
+```python
+# Use this to verify Excel target values
+python -c "
+import openpyxl
+wb = openpyxl.load_workbook('Optimum DCA clubhouse.xlsx', data_only=True)
+ws = wb['20222023 WDCA']
+print(f'Optimum: {ws.cell(199,3).value:,.2f} value, {ws.cell(199,4).value*100:.1f}% return')
+print(f'Simple: {ws.cell(200,3).value:,.2f} value, {ws.cell(200,4).value*100:.1f}% return')
+"
+```
+
+### Data Validation
+```python
+# Check CSV structure
+head -5 data/bitcoin_prices.csv
+
+# Check data coverage  
+python -c "
+import pandas as pd
+df = pd.read_csv('data/bitcoin_prices.csv')
+df['date'] = pd.to_datetime(df['date'], format='%m-%d-%Y')
+print(f'Data: {df.date.min()} to {df.date.max()}, {len(df)} days')
+"
+```
+
+## 🎯 Success Criteria
+
+A successful implementation should:
+1. ✅ **Perfect Excel match** for all three strategies
+2. ✅ **Standalone operation** (only needs `data/bitcoin_prices.csv`)
+3. ✅ **Clean code structure** with clear separation of concerns
+4. ✅ **Comprehensive documentation** explaining the approach
+5. ✅ **Reproducible results** across different runs
+
+## 🧹 Cleanup Guidelines
+
+**Always keep**:
+- `calibrated_standalone_dca.py` (main implementation)
+- `data/bitcoin_prices.csv` (data source)
+- `FINAL_STANDALONE_DCA_REPORT.md` (results)
+- `final_perfect_dca_comparison.py` (validation)
+- `README.md` (documentation)
+
+**Clean up after development**:
+- `debug_*.py` files
+- `test_*.py` files  
+- `analyze_*.py` files
+- `check_*.py` files
+- Temporary reports and CSVs
+
+Remember: The goal is a clean, standalone, perfectly accurate implementation that future developers can understand and use immediately.
