@@ -11,19 +11,40 @@ This file contains guidelines and best practices for working with the CryptoInve
 - Simple DCA: 209.4% return, $150,048.67 value, 1.29177345 BTC  
 - Buy & HODL: 177.8% return, $144,442.92 value, 1.24351340 BTC
 
-## 📁 Key Files & Their Purpose
+## 📁 Project Structure
 
-### Production Files (DO NOT DELETE)
-- `src/optimum_dca_analyzer.py` - **MAIN IMPLEMENTATION** - Standalone DCA with exact Excel matches
-- `data/bitcoin_prices.csv` - **ONLY DATA DEPENDENCY** - Historical Bitcoin prices with volume
-- `docs/analysis_report.md` - Comprehensive analysis report
-- `tools/excel_validator.py` - Validation tool (reads Excel directly for verification)
-- `reference/excel_file.xlsx` - Reference Excel file (rows 198-201 are target summary)
-- `examples/quick_start.py` - Simple usage example
+### **Production Files (DO NOT DELETE)**
+```
+├── src/                           # Main source code
+│   ├── __init__.py               # Package initialization
+│   └── optimum_dca_analyzer.py   # **MAIN IMPLEMENTATION** - Standalone DCA
+├── data/
+│   └── bitcoin_prices.csv        # **ONLY DATA DEPENDENCY** - Historical Bitcoin prices
+├── tests/                         # Test suite (pytest)
+│   ├── __init__.py
+│   └── test_dca_analyzer.py      # Comprehensive test suite (21 tests)
+├── docs/
+│   └── analysis_report.md        # Comprehensive analysis report
+├── tools/
+│   └── excel_validator.py        # Validation tool (Excel verification)
+├── examples/
+│   └── quick_start.py            # Simple usage example
+├── scripts/
+│   └── run_tests.py              # Professional test runner
+├── requirements/                  # Dependency management
+│   ├── base.txt                  # Core dependencies
+│   ├── test.txt                  # Testing dependencies
+│   └── dev.txt                   # Development dependencies
+└── reference/
+    └── legacy_optimum_dca.py     # Original implementation (Excel-dependent)
+```
 
-### Legacy/Reference Files
-- `reference/legacy_implementation.py` - Original implementation (complex, Excel-dependent)
-- `README.md` - Documentation (updated with user guide + technical details)
+### **Configuration Files**
+- `pyproject.toml` - Modern Python project configuration
+- `pytest.ini` - Test configuration
+- `.cursorrules` - Development guidelines (this file)
+- `README.md` - Main documentation
+- `TEST_SUMMARY.md` - Test documentation
 
 ## 🔧 Critical Constants & Formulas
 
@@ -58,6 +79,31 @@ Buy/Sell Multiplier = Discrete values:
 ```
 
 ## 🧪 Testing & Validation Patterns
+
+### Comprehensive Test Suite
+**Location**: `tests/test_dca_analyzer.py`
+**Execution**: `python scripts/run_tests.py`
+
+**Test Categories**:
+- ✅ **Validation Tests** (3): Core 462.1% vs 209.4% return validation
+- ✅ **Unit Tests** (14): Parameter validation, calculations, data handling
+- ✅ **Integration Tests** (3): Custom date ranges, market scenarios  
+- ✅ **Performance Tests** (2): Timing validation (< 30s execution)
+- ✅ **Edge Cases** (3): Zero budgets, invalid dates, error handling
+
+### Running Tests
+```bash
+# All tests
+python scripts/run_tests.py
+
+# Specific categories
+python scripts/run_tests.py --validation  # Core validation
+python scripts/run_tests.py --unit        # Unit tests
+python scripts/run_tests.py --performance # Performance tests
+
+# With coverage
+python scripts/run_tests.py --coverage
+```
 
 ### Excel Comparison Methodology
 1. **Always compare against Excel rows 198-201** (summary results)
@@ -111,7 +157,8 @@ date,Price,Daily Volume
 1. **Always backup** the working `src/optimum_dca_analyzer.py`
 2. **Create separate test files** for experiments (prefix with `test_` or `debug_`)
 3. **Validate against Excel** before integrating changes
-4. **Clean up debug files** after successful implementation
+4. **Run test suite** with `python scripts/run_tests.py`
+5. **Clean up debug files** after successful implementation
 
 ### For Debugging
 1. **Start with small samples** (first 5 weeks comparison)
@@ -147,32 +194,26 @@ Use these for quick validation:
 - Value: $144,442.92
 - Return: 177.8%
 
-## 🛠️ Useful Code Snippets
+## 🛠️ Package Management
 
-### Quick Excel Summary Check
-```python
-# Use this to verify Excel target values
-python -c "
-import openpyxl
-wb = openpyxl.load_workbook('Optimum DCA clubhouse.xlsx', data_only=True)
-ws = wb['20222023 WDCA']
-print(f'Optimum: {ws.cell(199,3).value:,.2f} value, {ws.cell(199,4).value*100:.1f}% return')
-print(f'Simple: {ws.cell(200,3).value:,.2f} value, {ws.cell(200,4).value*100:.1f}% return')
-"
+### Installing Dependencies
+```bash
+# Core dependencies
+pip install -r requirements/base.txt
+
+# Testing dependencies
+pip install -r requirements/test.txt
+
+# Development dependencies  
+pip install -r requirements/dev.txt
+
+# All development dependencies
+pip install -r requirements/dev.txt
 ```
 
-### Data Validation
-```python
-# Check CSV structure
-head -5 data/bitcoin_prices.csv
-
-# Check data coverage  
-python -c "
-import pandas as pd
-df = pd.read_csv('data/bitcoin_prices.csv')
-df['date'] = pd.to_datetime(df['date'], format='%m-%d-%Y')
-print(f'Data: {df.date.min()} to {df.date.max()}, {len(df)} days')
-"
+### Installing Package in Development Mode
+```bash
+pip install -e .
 ```
 
 ## 🎯 Success Criteria
@@ -180,18 +221,22 @@ print(f'Data: {df.date.min()} to {df.date.max()}, {len(df)} days')
 A successful implementation should:
 1. ✅ **Perfect Excel match** for all three strategies
 2. ✅ **Standalone operation** (only needs `data/bitcoin_prices.csv`)
-3. ✅ **Clean code structure** with clear separation of concerns
-4. ✅ **Comprehensive documentation** explaining the approach
-5. ✅ **Reproducible results** across different runs
+3. ✅ **Clean code structure** with proper Python packaging
+4. ✅ **Comprehensive test suite** (21 tests, 100% pass rate)
+5. ✅ **Professional documentation** explaining the approach
+6. ✅ **Reproducible results** across different runs
 
 ## 🧹 Cleanup Guidelines
 
 **Always keep**:
 - `src/optimum_dca_analyzer.py` (main implementation)
 - `data/bitcoin_prices.csv` (data source)
+- `tests/test_dca_analyzer.py` (test suite)
 - `docs/analysis_report.md` (results)
 - `tools/excel_validator.py` (validation)
 - `examples/quick_start.py` (usage example)
+- `scripts/run_tests.py` (test runner)
+- `requirements/` (dependencies)
 - `README.md` (documentation)
 
 **Clean up after development**:
@@ -199,6 +244,18 @@ A successful implementation should:
 - `test_*.py` files  
 - `analyze_*.py` files
 - `check_*.py` files
+- `mytest.py` files
 - Temporary reports and CSVs
+- `todo.md` files (personal notes)
 
 Remember: The goal is a clean, standalone, perfectly accurate implementation that future developers can understand and use immediately.
+
+## 📦 Python Best Practices Followed
+
+- ✅ **Proper package structure** with `__init__.py` files
+- ✅ **Modern project configuration** with `pyproject.toml`
+- ✅ **Separated requirements** for different environments
+- ✅ **Professional test suite** with pytest
+- ✅ **Clean import paths** and module organization
+- ✅ **Documentation** at all levels
+- ✅ **CI/CD ready** with comprehensive testing

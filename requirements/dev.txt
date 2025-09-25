@@ -1,0 +1,15 @@
+# Development dependencies
+-r base.txt
+-r test.txt
+
+# Code formatting and linting
+black>=22.0.0
+flake8>=5.0.0
+isort>=5.10.0
+
+# Type checking
+mypy>=0.991
+
+# Documentation
+sphinx>=5.0.0
+sphinx-rtd-theme>=1.0.0

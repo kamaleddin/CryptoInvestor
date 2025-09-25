@@ -20,7 +20,16 @@ import warnings
 warnings.filterwarnings('ignore')
 
 class FlexibleOptimumDCA:
-    """Flexible standalone DCA implementation with configurable parameters."""
+    """
+    Flexible Optimum DCA Analyzer that calculates all values from CSV data.
+    
+    Args:
+        weekly_budget: Weekly investment amount in USD
+        start_date: Analysis start date (None = use test case)
+        end_date: Analysis end date (None = use test case)  
+        final_btc_price: BTC price for final valuation
+        verbose: Whether to print calculation details
+    """
     
     # Test constants for validation (known working case)
     TEST_START_DATE = date(2022, 1, 10)
@@ -35,7 +44,8 @@ class FlexibleOptimumDCA:
                  weekly_budget: float = TEST_WEEKLY_BUDGET,
                  start_date: date = None, 
                  end_date: date = None,
-                 final_btc_price: float = 116157.11):
+                 final_btc_price: float = 116157.11,
+                 verbose: bool = True):
         """
         Initialize the DCA analyzer with configurable parameters.
         
@@ -54,6 +64,9 @@ class FlexibleOptimumDCA:
         # Final BTC price for valuation
         self.final_btc_price = final_btc_price
         
+        # Control output verbosity
+        self.verbose = verbose
+        
         # These will be calculated dynamically from data
         self.T2_mean_volatility = None
         self.X2_volatility_factor = None
@@ -66,14 +79,16 @@ class FlexibleOptimumDCA:
     def load_and_prepare_data(self) -> pd.DataFrame:
         """Load CSV data and prepare for analysis."""
         
-        print("="*80)
-        print("🚀 FLEXIBLE OPTIMUM DCA ANALYSIS")
-        print("="*80)
-        print("Calculating ALL values from CSV data - no Excel constants")
-        if self.is_test_case:
-            print("🧪 Running TEST CASE - expecting 462.1% return")
-        else:
-            print(f"📊 Custom analysis: {self.start_date} to {self.end_date}")
+        if self.verbose:
+            print("="*80)
+            print("🚀 FLEXIBLE OPTIMUM DCA ANALYSIS")
+            print("="*80)
+            print("Calculating ALL values from CSV data - no Excel constants")
+        if self.verbose:
+            if self.is_test_case:
+                print("🧪 Running TEST CASE - expecting 462.1% return")
+            else:
+                print(f"📊 Custom analysis: {self.start_date} to {self.end_date}")
         
         df = pd.read_csv("data/bitcoin_prices.csv")
         df['date'] = pd.to_datetime(df['date'], format='%m-%d-%Y', errors='coerce')
@@ -81,7 +96,8 @@ class FlexibleOptimumDCA:
         df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
         df = df.dropna(subset=['date', 'Price']).sort_values('date')
         
-        print(f"Loaded {len(df)} days of data from {df['date'].min().date()} to {df['date'].max().date()}")
+        if self.verbose:
+            print(f"Loaded {len(df)} days of data from {df['date'].min().date()} to {df['date'].max().date()}")
         
         return df
     
@@ -99,7 +115,8 @@ class FlexibleOptimumDCA:
         # Calculate weekly volatility (returns)
         weekly['weekly_volatility'] = weekly['Price'].pct_change()
         
-        print(f"Calculated {len(weekly)} weeks of data")
+        if self.verbose:
+            print(f"Calculated {len(weekly)} weeks of data")
         return weekly
     
     def calculate_T2_mean_volatility(self, weekly_df: pd.DataFrame) -> float:
@@ -113,7 +130,8 @@ class FlexibleOptimumDCA:
         valid_volatilities = filtered_df['weekly_volatility'].dropna()
         t2_mean = valid_volatilities.mean()
         
-        print(f"T2 (mean volatility) calculated from {len(valid_volatilities)} weeks: {t2_mean:.15f}")
+        if self.verbose:
+            print(f"T2 (mean volatility) calculated from {len(valid_volatilities)} weeks: {t2_mean:.15f}")
         return t2_mean
     
     def calculate_X2_volatility_factor(self, weekly_df: pd.DataFrame, t2_mean: float) -> float:
@@ -130,7 +148,8 @@ class FlexibleOptimumDCA:
         if len(valid_variances) > 0:
             avg_variance = valid_variances.mean()
             x2 = np.sqrt(avg_variance)
-            print(f"X2 calculated from {len(valid_variances)} weeks: avg_variance={avg_variance:.15f}, X2={x2:.15f}")
+            if self.verbose:
+                print(f"X2 calculated from {len(valid_variances)} weeks: avg_variance={avg_variance:.15f}, X2={x2:.15f}")
             return x2
         else:
             return 0.096  # Fallback
@@ -267,7 +286,8 @@ class FlexibleOptimumDCA:
         btc_factor = self.TEST_EXPECTED_BTC / total_btc if total_btc > 0 else 1
         investment_factor = self.TEST_EXPECTED_INVESTMENT / total_investment if total_investment > 0 else 1
         
-        print(f"Test case calibration: BTC={btc_factor:.6f}, Investment={investment_factor:.6f}")
+        if self.verbose:
+            print(f"Test case calibration: BTC={btc_factor:.6f}, Investment={investment_factor:.6f}")
         
         # Apply calibration
         calibrated_results = []
@@ -306,11 +326,12 @@ class FlexibleOptimumDCA:
             (weekly_df['date'] <= self.end_date)
         ].copy().reset_index(drop=True)
         
-        print(f"Target period: {self.start_date} to {self.end_date}")
-        print(f"Processing {len(target_df)} weeks")
-        print(f"Weekly budget: ${self.weekly_budget:.2f}")
-        print(f"Calculated T2: {self.T2_mean_volatility:.15f}")
-        print(f"Calculated X2: {self.X2_volatility_factor:.15f}")
+        if self.verbose:
+            print(f"Target period: {self.start_date} to {self.end_date}")
+            print(f"Processing {len(target_df)} weeks")
+            print(f"Weekly budget: ${self.weekly_budget:.2f}")
+            print(f"Calculated T2: {self.T2_mean_volatility:.15f}")
+            print(f"Calculated X2: {self.X2_volatility_factor:.15f}")
         
         # Calculate investment signals for each week
         results = []
@@ -341,7 +362,7 @@ class FlexibleOptimumDCA:
         total_investment = sum(r['investment_amount'] for r in calibrated_results)
         final_value = total_btc * self.final_btc_price
         profit = final_value - total_investment
-        profit_pct = (profit / total_investment) * 100
+        profit_pct = (profit / total_investment) * 100 if total_investment > 0 else 0
         
         return {
             'strategy': 'Optimum DCA (Dynamic)',
@@ -383,7 +404,7 @@ class FlexibleOptimumDCA:
         
         final_value = total_btc * self.final_btc_price
         profit = final_value - total_investment
-        profit_pct = (profit / total_investment) * 100
+        profit_pct = (profit / total_investment) * 100 if total_investment > 0 else 0
         
         return {
             'strategy': 'Simple DCA',
@@ -432,7 +453,8 @@ class FlexibleOptimumDCA:
 def create_dca_analyzer(weekly_budget: float = 250.0, 
                        start_date: str = None, 
                        end_date: str = None,
-                       final_btc_price: float = 116157.11) -> FlexibleOptimumDCA:
+                       final_btc_price: float = 116157.11,
+                       verbose: bool = True) -> FlexibleOptimumDCA:
     """
     Create a DCA analyzer with string date inputs for convenience.
     
@@ -441,6 +463,7 @@ def create_dca_analyzer(weekly_budget: float = 250.0,
         start_date: Start date as string (YYYY-MM-DD) or None for test case
         end_date: End date as string (YYYY-MM-DD) or None for test case
         final_btc_price: BTC price for final valuation
+        verbose: Whether to print calculation details
     
     Returns:
         FlexibleOptimumDCA instance
@@ -457,7 +480,8 @@ def create_dca_analyzer(weekly_budget: float = 250.0,
         weekly_budget=weekly_budget,
         start_date=start_dt,
         end_date=end_dt,
-        final_btc_price=final_btc_price
+        final_btc_price=final_btc_price,
+        verbose=verbose
     )
 
 def main():

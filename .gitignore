@@ -192,11 +192,20 @@ $RECYCLE.BIN/
 
 # Project-specific temporary files
 debug_*.py
-test_*.py
 analyze_*.py
 check_*.py
+mytest.py
 *.tmp
 *.temp
+todo.md
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+.tox/
+.nox/
 
 # Backup files
 *.bak

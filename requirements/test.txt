@@ -1,0 +1,8 @@
+# Testing dependencies for CryptoInvestor DCA Analyzer
+-r base.txt
+
+pytest>=7.0.0
+pytest-cov>=4.0.0  # Coverage reporting
+pytest-mock>=3.10.0  # Mocking utilities
+pytest-benchmark>=4.0.0  # Performance benchmarking (optional)
+pytest-xdist>=3.0.0  # Parallel test execution (optional)
