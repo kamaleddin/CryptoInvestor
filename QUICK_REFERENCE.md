@@ -4,17 +4,20 @@
 
 ### Run Analysis
 ```bash
-# RECOMMENDED (quarterly rolling, risk metrics)
+# RECOMMENDED (monthly rolling, 378 sims, optimized) ⭐
 python tools/balanced_rolling_analyzer.py
 
 # Exploration (1,512 simulations)
 python tools/duration_simulator.py
 
-# Academic rigor (non-overlapping)
+# Academic rigor (non-overlapping, 18 sims)
 python tools/advanced_duration_analyzer.py
 
 # Compare all methods
 python tools/comprehensive_comparison.py
+
+# Compare quarterly vs monthly (NEW)
+python tools/compare_quarterly_vs_monthly.py
 ```
 
 ### View Results
@@ -47,9 +50,12 @@ cat PROJECT_STRUCTURE.md
 
 | Tool | When to Use | Simulations | Independence |
 |------|-------------|-------------|--------------|
-| `duration_simulator.py` | Explore patterns | 1,512 | ❌ Low |
-| `balanced_rolling_analyzer.py` ⭐ | Standard analysis | 120 | ⚠️ Good |
-| `advanced_duration_analyzer.py` | Academic/regulatory | 18 | ✅ Perfect |
+| `duration_simulator.py` | Explore patterns | 1,512 | ❌ Low (~2%) |
+| `balanced_rolling_analyzer.py` ⭐ | Standard analysis | **378** (monthly) | ⚠️ Good (~8%) |
+| `advanced_duration_analyzer.py` | Academic/regulatory | 18 | ✅ Perfect (100%) |
+
+**v2.1 Update**: balanced_rolling_analyzer now uses monthly (4-week) steps instead of quarterly (13-week)  
+**Result**: 3x more simulations (378 vs 120) with similar statistical validity!
 
 ---
 
@@ -152,6 +158,7 @@ python scripts/run_tests.py --coverage
 
 ---
 
-**Version**: 2.0.0  
+**Version**: 2.1.0 (Optimized)  
 **Date**: September 30, 2025  
-**Status**: Production Ready ✅
+**Status**: Production Ready ✅  
+**Key Update**: Monthly rolling (378 sims) now default ⭐
