@@ -1,0 +1,168 @@
+================================================================================
+INVESTMENT DURATION SIMULATION - SUMMARY REPORT
+================================================================================
+Generated: 2025-09-29 21:25:34
+Period: 2016-01-01 to 2025-09-24
+Weekly Budget: $250.00
+================================================================================
+
+================================================================================
+1-YEAR DURATION
+================================================================================
+Total Simulations: 456
+
+OPTIMUM DCA PERFORMANCE:
+  Average Return:        168.68%
+  Median Return:           0.00%
+  Return Range:        -2350.27% to   52535.53%
+  Std Deviation:        2499.51%
+  Win Rate:                45.2%
+  Avg Investment:    $       5,892.46
+  Avg Final Value:   $       3,915.14
+  Avg BTC Acquired:  -0.65476008
+
+SIMPLE DCA PERFORMANCE:
+  Average Return:         70.43%
+  Median Return:          37.55%
+  Return Range:          -56.02% to     863.91%
+  Std Deviation:         121.66%
+  Win Rate:                77.2%
+  Avg Investment:    $      13,000.00
+  Avg Final Value:   $      22,155.81
+  Avg BTC Acquired:  2.76307982
+
+OPTIMUM vs SIMPLE COMPARISON:
+  Avg Outperformance:           98.25 percentage points
+  Median Outperformance:         8.92 percentage points
+  Outperformance Range:      -2410.49 to   52477.01 pp
+  Times Optimum Better:          59.9%
+  Avg Return Multiplier:         4.18x
+
+================================================================================
+2-YEAR DURATION
+================================================================================
+Total Simulations: 404
+
+OPTIMUM DCA PERFORMANCE:
+  Average Return:        234.92%
+  Median Return:          78.73%
+  Return Range:        -1592.15% to   16763.84%
+  Std Deviation:         930.56%
+  Win Rate:                67.6%
+  Avg Investment:    $      14,728.77
+  Avg Final Value:   $      29,981.97
+  Avg BTC Acquired:  0.08305461
+
+SIMPLE DCA PERFORMANCE:
+  Average Return:        145.73%
+  Median Return:          87.41%
+  Return Range:          -49.69% to    1878.96%
+  Std Deviation:         225.39%
+  Win Rate:                83.4%
+  Avg Investment:    $      26,000.00
+  Avg Final Value:   $      63,890.91
+  Avg BTC Acquired:  4.24290658
+
+OPTIMUM vs SIMPLE COMPARISON:
+  Avg Outperformance:           89.18 percentage points
+  Median Outperformance:        35.96 percentage points
+  Outperformance Range:      -1878.96 to   16236.36 pp
+  Times Optimum Better:          75.7%
+  Avg Return Multiplier:        -1.98x
+
+================================================================================
+3-YEAR DURATION
+================================================================================
+Total Simulations: 352
+
+OPTIMUM DCA PERFORMANCE:
+  Average Return:        213.49%
+  Median Return:         111.19%
+  Return Range:       -16094.50% to    1843.86%
+  Std Deviation:         972.73%
+  Win Rate:                80.1%
+  Avg Investment:    $      27,426.40
+  Avg Final Value:   $      96,191.64
+  Avg BTC Acquired:  1.39832852
+
+SIMPLE DCA PERFORMANCE:
+  Average Return:        171.37%
+  Median Return:         123.62%
+  Return Range:          -10.20% to     685.43%
+  Std Deviation:         158.83%
+  Win Rate:                94.9%
+  Avg Investment:    $      39,000.00
+  Avg Final Value:   $     105,834.77
+  Avg BTC Acquired:  5.67769027
+
+OPTIMUM vs SIMPLE COMPARISON:
+  Avg Outperformance:           42.12 percentage points
+  Median Outperformance:        54.39 percentage points
+  Outperformance Range:     -16224.97 to    1158.43 pp
+  Times Optimum Better:          78.7%
+  Avg Return Multiplier:         1.11x
+
+================================================================================
+4-YEAR DURATION
+================================================================================
+Total Simulations: 300
+
+OPTIMUM DCA PERFORMANCE:
+  Average Return:        131.80%
+  Median Return:         195.65%
+  Return Range:        -3169.39% to    2309.64%
+  Std Deviation:         821.06%
+  Win Rate:                81.3%
+  Avg Investment:    $      36,543.62
+  Avg Final Value:   $     132,005.67
+  Avg BTC Acquired:  2.12790559
+
+SIMPLE DCA PERFORMANCE:
+  Average Return:        245.82%
+  Median Return:         187.83%
+  Return Range:           32.89% to     950.67%
+  Std Deviation:         191.95%
+  Win Rate:               100.0%
+  Avg Investment:    $      52,000.00
+  Avg Final Value:   $     179,824.51
+  Avg BTC Acquired:  7.10829887
+
+OPTIMUM vs SIMPLE COMPARISON:
+  Avg Outperformance:         -114.02 percentage points
+  Median Outperformance:        80.94 percentage points
+  Outperformance Range:      -3578.66 to    1450.23 pp
+  Times Optimum Better:          79.3%
+  Avg Return Multiplier:         0.75x
+
+================================================================================
+BLENDED DURATION
+================================================================================
+Total Simulations: 1,512
+
+OPTIMUM DCA PERFORMANCE:
+  Average Return:        189.49%
+  Median Return:          64.96%
+  Return Range:       -16094.50% to   52535.53%
+  Std Deviation:        1570.65%
+  Win Rate:                66.5%
+  Avg Investment:    $      19,348.25
+  Avg Final Value:   $      57,777.23
+  Avg BTC Acquired:  0.57246480
+
+SIMPLE DCA PERFORMANCE:
+  Average Return:        148.85%
+  Median Return:          92.49%
+  Return Range:          -56.02% to    1878.96%
+  Std Deviation:         187.08%
+  Win Rate:                87.5%
+  Avg Investment:    $      30,264.55
+  Avg Final Value:   $      84,071.54
+  Avg BTC Acquired:  4.69916355
+
+OPTIMUM vs SIMPLE COMPARISON:
+  Avg Outperformance:           40.64 percentage points
+  Median Outperformance:        31.30 percentage points
+  Outperformance Range:     -16224.97 to   52477.01 pp
+  Times Optimum Better:          72.4%
+  Avg Return Multiplier:         1.14x
+
