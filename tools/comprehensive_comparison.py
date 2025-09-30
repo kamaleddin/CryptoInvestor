@@ -54,9 +54,9 @@ def run_duration_simulator_analysis():
         return {}
 
 def run_balanced_rolling_analysis():
-    """Run balanced rolling analysis with quarterly steps."""
+    """Run balanced rolling analysis with monthly steps (v2.1 optimized)."""
     print("\n" + "="*80)
-    print("📊 RUNNING BALANCED ROLLING ANALYSIS (Quarterly)")
+    print("📊 RUNNING BALANCED ROLLING ANALYSIS (Monthly - v2.1)")
     print("="*80)
     
     analyzer = AdvancedDurationAnalyzer(
@@ -69,15 +69,15 @@ def run_balanced_rolling_analysis():
     
     stats = analyzer.run_comprehensive_analysis(
         use_non_overlapping=False,
-        rolling_step_weeks=13
+        rolling_step_weeks=4  # MONTHLY (v2.1 optimized)
     )
     
     results = {}
     for duration, data in stats.items():
         results[duration] = {
-            'method': 'Quarterly Rolling (13-week steps)',
+            'method': 'Monthly Rolling (4-week steps) - v2.1',
             'n_simulations': data['n_periods'],
-            'n_effective': int(data['n_periods'] * 0.4),  # ~40% independence
+            'n_effective': int(data['n_periods'] * 0.08),  # ~8% independence
             'optimum_mean': data['optimum']['mean_return'] * 100,
             'optimum_median': data['optimum']['median_return'] * 100,
             'optimum_std': data['optimum']['std_return'] * 100,
@@ -173,9 +173,9 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
     report.append("   - Maximum data utilization: 1,512 simulations")
     report.append("   - High autocorrelation: ~98% overlap")
     report.append("   - Best for: Pattern exploration, not statistical inference")
-    report.append("\n2. BALANCED ROLLING (Quarterly Steps)")
-    report.append("   - Moderate data: 120 simulations (~48 effective)")
-    report.append("   - Manageable autocorrelation: ~75% overlap")
+    report.append("\n2. BALANCED ROLLING (Monthly Steps - v2.1 OPTIMIZED)")
+    report.append("   - Large data: 378 simulations (~30 effective)")
+    report.append("   - Manageable autocorrelation: ~92% overlap")
     report.append("   - Best for: Standard analysis with risk metrics ⭐ RECOMMENDED")
     report.append("\n3. NON-OVERLAPPING (Perfect Independence)")
     report.append("   - Minimal data: 18 simulations")
@@ -199,7 +199,7 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
         
         if duration in balanced:
             br = balanced[duration]
-            report.append(f"\n📊 BALANCED ROLLING (Quarterly Steps)")
+            report.append(f"\n📊 BALANCED ROLLING (Monthly Steps - v2.1)")
             report.append(f"   Simulations: {br['n_simulations']:,} (≈{br['n_effective']} effective)")
             report.append(f"   Optimum DCA:  {br['optimum_mean']:>8.2f}% avg, {br['optimum_median']:>8.2f}% median (σ={br['optimum_std']:.2f}%)")
             report.append(f"   Simple DCA:   {br['simple_mean']:>8.2f}% avg, {br['simple_median']:>8.2f}% median (σ={br['simple_std']:.2f}%)")
