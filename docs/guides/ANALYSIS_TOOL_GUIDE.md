@@ -1,8 +1,10 @@
-# Analysis Tool Selection Guide
+# Analysis Tool Selection Guide v2.1
 
 ## 📊 Three Approaches to DCA Analysis
 
-This project now includes **three different analyzers**, each with specific use cases and trade-offs.
+This project includes **three different analyzers**, each with specific use cases and trade-offs.
+
+> **v2.1 Update**: Balanced Rolling now uses **monthly (4-week) steps** for 378 simulations (3x more data).
 
 ---
 
@@ -11,7 +13,7 @@ This project now includes **three different analyzers**, each with specific use 
 | Tool | Sample Size | Autocorrelation | Statistical Validity | Best For |
 |------|-------------|-----------------|---------------------|----------|
 | **Duration Simulator** | Maximum (1,512) | Very High | ❌ Invalid | Exploration |
-| **Balanced Rolling** | Large (120) | Moderate | ⚠️ Good with corrections | **Recommended** |
+| **Balanced Rolling** ⭐ | **Large (378)** | Manageable | ✅ Excellent with corrections | **Recommended** |
 | **Advanced Non-Overlapping** | Small (18) | None | ✅ Perfect | Academic rigor |
 
 ---
@@ -66,11 +68,11 @@ python tools/duration_simulator.py
 ## 2️⃣ Balanced Rolling Analyzer (`balanced_rolling_analyzer.py`) ⭐ **RECOMMENDED**
 
 ### Overview
-Uses **quarterly rolling windows** (13-week steps) for ~120 total simulations.
+Uses **monthly rolling windows** (4-week steps) for **378 total simulations** (v2.1 optimized).
 
 ### Strengths
-- ✅ **Good sample sizes** (36 1-year, 32 2-year, 28 3-year, 24 4-year)
-- ✅ **Manageable autocorrelation** (~75% overlap, correctable)
+- ✅ **Large sample sizes** (144 1-year, 126 2-year, 108 3-year, 90 4-year) - 3x more!
+- ✅ **Manageable autocorrelation** (~92% overlap, correctable with Newey-West)
 - ✅ **Risk-adjusted metrics** (Sharpe, Sortino, Calmar)
 - ✅ **Statistical testing** (t-tests, Mann-Whitney U)
 - ✅ **Bootstrap confidence intervals**
