@@ -78,7 +78,7 @@ class FlexibleOptimumDCA:
         
     def load_and_prepare_data(self) -> pd.DataFrame:
         """Load CSV data and prepare for analysis."""
-        
+
         if self.verbose:
             print("="*80)
             print("🚀 FLEXIBLE OPTIMUM DCA ANALYSIS")
@@ -89,32 +89,44 @@ class FlexibleOptimumDCA:
                 print("🧪 Running TEST CASE - expecting 462.1% return")
             else:
                 print(f"📊 Custom analysis: {self.start_date} to {self.end_date}")
-        
+
         df = pd.read_csv("data/bitcoin_prices.csv")
         df['date'] = pd.to_datetime(df['date'], format='%m-%d-%Y', errors='coerce')
         df['Price'] = df['Price'].astype(str).str.replace('$', '').str.replace(',', '').str.strip()
         df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+
+        # Process volume data (available from 9-17-2014 onwards)
+        df['Daily Volume'] = df['Daily Volume'].astype(str).str.replace('$', '').str.replace(',', '').str.strip()
+        df['Daily Volume'] = pd.to_numeric(df['Daily Volume'], errors='coerce')
+
         df = df.dropna(subset=['date', 'Price']).sort_values('date')
-        
+
         if self.verbose:
             print(f"Loaded {len(df)} days of data from {df['date'].min().date()} to {df['date'].max().date()}")
-        
+            volume_start = df[df['Daily Volume'].notna()].iloc[0]['date'].date() if any(df['Daily Volume'].notna()) else 'N/A'
+            print(f"Volume data available from: {volume_start}")
+
         return df
     
     def calculate_weekly_data(self, daily_df: pd.DataFrame) -> pd.DataFrame:
         """Calculate weekly data using proper aggregation."""
-        
+
         # Set date as index for resampling
         df_temp = daily_df.set_index('date')
-        
+
         # Resample to weekly (Monday-based, label='right' to match Excel)
-        weekly = df_temp.resample('W-MON', label='right').agg({'Price': 'last'}).dropna()
+        # Aggregate both price and volume
+        weekly = df_temp.resample('W-MON', label='right').agg({
+            'Price': 'last',
+            'Daily Volume': 'sum'  # Sum daily volumes for weekly volume
+        })
         weekly = weekly.reset_index()
+        weekly.rename(columns={'Daily Volume': 'Weekly Volume'}, inplace=True)
         weekly['date'] = weekly['date'].dt.date
-        
+
         # Calculate weekly volatility (returns)
         weekly['weekly_volatility'] = weekly['Price'].pct_change()
-        
+
         if self.verbose:
             print(f"Calculated {len(weekly)} weeks of data")
         return weekly
@@ -152,26 +164,35 @@ class FlexibleOptimumDCA:
                 print(f"X2 calculated from {len(valid_variances)} weeks: avg_variance={avg_variance:.15f}, X2={x2:.15f}")
             return x2
         else:
-            return 0.096  # Fallback
+            raise ValueError("No valid variance data to calculate X2")
     
     def calculate_rolling_metrics(self, weekly_df: pd.DataFrame) -> pd.DataFrame:
         """Calculate 14-week rolling metrics (VWAP and volatility)."""
-        
+
         df = weekly_df.copy()
-        
+
         # 14-week rolling volatility (standard deviation)
         df['ma_14w_volatility'] = df['weekly_volatility'].rolling(window=14, min_periods=1).std()
-        
-        # Simplified VWAP calculation (since we don't have volume data in current CSV)
-        df['vwap_14w'] = df['Price'].rolling(window=14, min_periods=1).mean()
-        
-        # Apply calibration factor for test case compatibility
-        if self.is_test_case:
-            for i in range(len(df)):
-                if df.iloc[i]['date'] >= date(2022, 1, 1):
-                    # Apply a calibration factor to get closer to Excel's VWAP
-                    df.iloc[i, df.columns.get_loc('vwap_14w')] *= 1.015  # Small adjustment
-        
+
+        # Calculate proper VWAP using volume data where available
+        # VWAP = Sum(Price * Volume) / Sum(Volume) over 14 weeks
+        if 'Weekly Volume' in df.columns:
+            df['price_volume'] = df['Price'] * df['Weekly Volume'].fillna(0)
+
+            # For 14-week VWAP, calculate rolling sums
+            rolling_price_volume = df['price_volume'].rolling(window=14, min_periods=1).sum()
+            rolling_volume = df['Weekly Volume'].fillna(0).rolling(window=14, min_periods=1).sum()
+
+            # Calculate VWAP where we have volume data, otherwise use simple average
+            df['vwap_14w'] = np.where(
+                rolling_volume > 0,
+                rolling_price_volume / rolling_volume,  # Proper VWAP
+                df['Price'].rolling(window=14, min_periods=1).mean()  # Simple average as fallback
+            )
+        else:
+            # Fallback if no volume data
+            df['vwap_14w'] = df['Price'].rolling(window=14, min_periods=1).mean()
+
         return df
     
     def calculate_price_bands(self, weekly_df: pd.DataFrame) -> pd.DataFrame:
@@ -272,78 +293,69 @@ class FlexibleOptimumDCA:
         
         return effective_multiplier * self.weekly_budget
     
-    def apply_test_case_calibration(self, results: list) -> list:
-        """Apply calibration for test case to match exact Excel values."""
-        
-        if not self.is_test_case:
-            return results  # No calibration for custom periods
-            
-        # Calculate current totals
-        total_btc = sum(r['btc_purchased'] for r in results)
-        total_investment = sum(r['investment_amount'] for r in results)
-        
-        # Target test case values
-        btc_factor = self.TEST_EXPECTED_BTC / total_btc if total_btc > 0 else 1
-        investment_factor = self.TEST_EXPECTED_INVESTMENT / total_investment if total_investment > 0 else 1
-        
-        if self.verbose:
-            print(f"Test case calibration: BTC={btc_factor:.6f}, Investment={investment_factor:.6f}")
-        
-        # Apply calibration
-        calibrated_results = []
-        for result in results:
-            calibrated_result = result.copy()
-            calibrated_result['investment_amount'] *= investment_factor
-            calibrated_result['btc_purchased'] *= btc_factor
-            calibrated_results.append(calibrated_result)
-        
-        return calibrated_results
     
     def run_optimum_dca_simulation(self) -> Dict:
         """Run the complete Optimum DCA simulation with calculated values."""
-        
+
         # Load and prepare data
         daily_df = self.load_and_prepare_data()
-        
+
         # Calculate weekly data
         weekly_df = self.calculate_weekly_data(daily_df)
-        
+
         # Calculate T2 (mean volatility) dynamically
         self.T2_mean_volatility = self.calculate_T2_mean_volatility(weekly_df)
-        
+
         # Calculate X2 dynamically
         self.X2_volatility_factor = self.calculate_X2_volatility_factor(weekly_df, self.T2_mean_volatility)
-        
+
         # Calculate rolling metrics
         weekly_df = self.calculate_rolling_metrics(weekly_df)
-        
+
         # Calculate price bands
         weekly_df = self.calculate_price_bands(weekly_df)
-        
+
         # Filter to target period
         target_df = weekly_df[
-            (weekly_df['date'] >= self.start_date) & 
+            (weekly_df['date'] >= self.start_date) &
             (weekly_df['date'] <= self.end_date)
         ].copy().reset_index(drop=True)
-        
+
+        # Calculate "Change from First day" for WDCA adjustment
+        if len(target_df) > 0:
+            first_price = target_df.iloc[0]['Price']
+            target_df['change_from_first'] = (target_df['Price'] - first_price) / first_price
+
         if self.verbose:
             print(f"Target period: {self.start_date} to {self.end_date}")
             print(f"Processing {len(target_df)} weeks")
             print(f"Weekly budget: ${self.weekly_budget:.2f}")
             print(f"Calculated T2: {self.T2_mean_volatility:.15f}")
             print(f"Calculated X2: {self.X2_volatility_factor:.15f}")
-        
+
         # Calculate investment signals for each week
         results = []
         for i, row in target_df.iterrows():
-            # Calculate investment signals
-            investment_multiple = self.calculate_investment_multiple(row)
+            # Calculate base investment multiple from weekly price logic
+            investment_multiple_base = self.calculate_investment_multiple(row)
+
+            # Apply WDCA adjustment: subtract change from first day
+            change_from_first = row.get('change_from_first', 0)
+            if pd.notna(change_from_first):
+                if change_from_first < -0.4:
+                    # Special case for large drops
+                    investment_multiple = investment_multiple_base - (2 * change_from_first)
+                else:
+                    investment_multiple = investment_multiple_base - change_from_first
+            else:
+                investment_multiple = investment_multiple_base
+
             buy_sell_multiplier = self.calculate_buy_sell_multiplier(row, investment_multiple)
             investment_amount = self.calculate_investment_amount(investment_multiple, buy_sell_multiplier)
-            
+
             # Calculate BTC purchased
             btc_purchased = investment_amount / row['Price']
-            
+
             # Store weekly result
             results.append({
                 'date': row['date'],
@@ -353,13 +365,10 @@ class FlexibleOptimumDCA:
                 'investment_amount': investment_amount,
                 'btc_purchased': btc_purchased
             })
-        
-        # Apply calibration for test case
-        calibrated_results = self.apply_test_case_calibration(results)
-        
+
         # Calculate final metrics
-        total_btc = sum(r['btc_purchased'] for r in calibrated_results)
-        total_investment = sum(r['investment_amount'] for r in calibrated_results)
+        total_btc = sum(r['btc_purchased'] for r in results)
+        total_investment = sum(r['investment_amount'] for r in results)
         final_value = total_btc * self.final_btc_price
         profit = final_value - total_investment
         profit_pct = (profit / total_investment) * 100 if total_investment > 0 else 0
@@ -371,7 +380,7 @@ class FlexibleOptimumDCA:
             'holding_value': final_value,
             'profit': profit,
             'profit_pct': profit_pct,
-            'weekly_results': calibrated_results,
+            'weekly_results': results,
             'calculated_T2': self.T2_mean_volatility,
             'calculated_X2': self.X2_volatility_factor,
             'period_weeks': len(target_df),
