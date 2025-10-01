@@ -77,39 +77,75 @@ cat docs/methodology/STATISTICAL_METHODOLOGY_COMPARISON.md
 
 ## 📊 Key Findings
 
-### ⚠️ **Statistical Reality**
+### 🎯 **Key Finding: No Statistically Significant Advantage**
 
-Using proper statistical methods (non-overlapping periods):
+Despite the complexity of Optimum DCA, there's **NO statistically significant difference** between Optimum and Simple DCA strategies across most investment horizons when properly accounting for autocorrelation.
 
-- **No statistically significant difference** between Optimum and Simple DCA (p > 0.05 for all durations)
-- Weekly rolling results are **misleading** due to 98% autocorrelation
-- Methodology choice **dramatically affects conclusions**
+### 🏆 **Performance Summary** (Monthly Rolling v2.1 - Recommended)
 
-### 🏆 **Performance Summary** (Quarterly Rolling - Recommended)
+| Duration | Optimum Avg | Simple Avg | Winner | Sharpe Ratio | P-Value | Win Rate |
+|----------|-------------|------------|--------|--------------|---------|----------|
+| **1-Year** | 65.3% | 70.7% | Simple | O: 0.169, S: 0.566 | 0.881 ❌ | S: 77%, O: 39% |
+| **2-Year** | 64.2% | 152.8% | Simple | O: 0.195, S: 0.421 | 0.008 ✅ | S: 84%, O: 37% |
+| **3-Year** | 209.2% | 174.2% | Mixed | O: 0.167, S: 0.568 | 0.596 ❌ | S: 95%, O: 35% |
+| **4-Year** | 165.2% | 248.4% | Simple | O: 0.140, S: 0.586 | 0.193 ❌ | S: 100%, O: 19% |
 
-| Duration | Optimum Avg | Simple Avg | Winner (Risk-Adj) | P-Value |
-|----------|-------------|------------|-------------------|---------|
-| 1-Year | 272.34% | 65.58% | Simple (Sharpe: 0.495) | 0.38 ❌ |
-| 2-Year | 149.45% | 159.50% | Optimum (Sharpe: 0.397) | 0.88 ❌ |
-| 3-Year | 243.81% | 165.98% | Simple (Sharpe: 0.568) | 0.17 ❌ |
-| 4-Year | 162.27% | 233.33% | Simple (Sharpe: 0.610) | 0.62 ❌ |
+✅ = Statistically significant | ❌ = Not statistically significant | O = Optimum, S = Simple
 
-❌ = Not statistically significant
+**Critical Finding**: Simple DCA is **statistically significantly better** for 2-year horizons (p=0.008)
 
-### 💡 **Practical Insights**
+### 🛡️ **Risk Analysis**
 
-**Optimum DCA Advantages:**
-- ✅ Better downside protection (Sortino ratio)
-- ✅ Superior tail risk metrics (lower VaR, CVaR)
-- ✅ Higher upside potential in bull markets
+**Optimum DCA Characteristics:**
+- ✅ Better downside protection (lower VaR: -27.7% vs -40.3% at 1-year)
+- ✅ Superior Sortino ratios (downside-risk-adjusted returns)
+- ✅ Lower maximum drawdowns in most periods
+- ❌ Extremely high volatility (362% vs 118% at 1-year)
+- ❌ Low win rates (18-39% vs Simple's 77-100%)
 
-**Simple DCA Advantages:**
-- ✅ Better risk-adjusted returns (Sharpe ratio)
-- ✅ More consistent performance
-- ✅ 100% win rate over 2+ years (non-overlapping data)
-- ✅ Lower volatility
+**Simple DCA Characteristics:**
+- ✅ Superior Sharpe ratios (0.421-0.586 vs Optimum's 0.140-0.195)
+- ✅ More consistent returns (lower standard deviation)
+- ✅ Higher win rates (77-100% success rate)
+- ✅ Much lower volatility
+- ❌ Higher tail risk in extreme downturns
 
-**Recommendation**: Choice depends on risk tolerance and investment horizon.
+### 💡 **Practical Recommendations**
+
+**Choose Simple DCA if you:**
+- Want predictable, consistent returns
+- Prefer lower volatility (risk-averse)
+- Have 2-4 year investment horizon
+- Value simplicity in execution
+- Need reliable performance metrics
+
+**Consider Optimum DCA if you:**
+- Can tolerate extreme volatility (362%+ annual)
+- Want tail risk protection
+- Seek potential for extreme upside (lottery-ticket returns)
+- Have very short horizons during confirmed bull markets
+- Can actively monitor and adjust positions
+
+### 📊 **Statistical Reality Check**
+
+The analysis used three methodologies to ensure robust conclusions:
+
+1. **Weekly Rolling** (1,512 simulations) - ⚠️ Misleading due to 98% overlap
+2. **Monthly Rolling** (378 simulations) - ✅ Best balance, ~8% autocorrelation (**RECOMMENDED**)
+3. **Non-Overlapping** (18 simulations) - ✅ Perfect independence but low statistical power
+
+**Bottom Line**: When properly accounting for statistical dependencies, **Simple DCA performs as well or better than Optimum DCA** with significantly less complexity and risk.
+
+### 🏆 **Final Verdict**
+
+**Simple DCA is the practical winner** for most investors:
+- Statistically equivalent or better returns in most periods
+- **Significantly outperforms in 2-year windows** (p=0.008)
+- Much simpler to implement and maintain
+- Lower volatility and more predictable outcomes
+- No complex VWAP calculations or volatility adjustments needed
+
+The added complexity of Optimum DCA (VWAP bands, volatility adjustments, dynamic multipliers) **does not translate to statistically significant outperformance** and actually underperforms significantly in 2-year windows.
 
 ---
 
@@ -136,7 +172,7 @@ CryptoInvestor/
 └── examples/               # Usage examples
 ```
 
-**See**: [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for complete details.
+**See**: [PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for complete details.
 
 ---
 
@@ -242,12 +278,13 @@ python scripts/run_tests.py --performance  # Performance tests
 
 | Document | Description |
 |----------|-------------|
-| [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) | Complete project organization |
+| [PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) | Complete project organization |
+| [QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md) | Quick commands and tips |
 | [ANALYSIS_TOOL_GUIDE.md](docs/guides/ANALYSIS_TOOL_GUIDE.md) | Which tool to use when |
+| [REPORTS_GUIDE.md](docs/guides/REPORTS_GUIDE.md) | Understanding report outputs |
 | [STATISTICAL_METHODOLOGY_COMPARISON.md](docs/methodology/STATISTICAL_METHODOLOGY_COMPARISON.md) | Statistical methods explained |
 | [DURATION_SIMULATION_README.md](docs/guides/DURATION_SIMULATION_README.md) | Simulation results |
 | [TEST_SUMMARY.md](docs/TEST_SUMMARY.md) | Test documentation |
-| [.cursorrules](.cursorrules) | Development guidelines |
 
 ---
 
@@ -445,7 +482,7 @@ Contributions welcome! Please:
 **Documentation**:
 - Tool Selection: [docs/guides/ANALYSIS_TOOL_GUIDE.md](docs/guides/ANALYSIS_TOOL_GUIDE.md)
 - Statistics: [docs/methodology/STATISTICAL_METHODOLOGY_COMPARISON.md](docs/methodology/STATISTICAL_METHODOLOGY_COMPARISON.md)
-- Project Structure: [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
+- Project Structure: [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)
 
 **Reports**:
 - Comprehensive Comparison: `reports/comparisons/COMPREHENSIVE_COMPARISON_REPORT.txt`
