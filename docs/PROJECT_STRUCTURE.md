@@ -51,8 +51,9 @@ CryptoInvestor/
 │   ├── test.txt                    # Testing dependencies
 │   └── dev.txt                     # Development dependencies
 │
-├── 📖 reference/                    # Reference implementations
-│   └── legacy_optimum_dca.py       # Original Excel-dependent version
+├── 📖 reference/                    # Reference materials
+│   ├── legacy_optimum_dca.py       # Original Excel-dependent version
+│   └── Optimum DCA.xlsx            # Excel reference file for validation
 │
 ├── 💾 data/                         # Data files
 │   └── bitcoin_prices.csv          # Historical Bitcoin prices

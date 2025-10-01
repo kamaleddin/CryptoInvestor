@@ -1,13 +1,7 @@
-⚠️  DEPRECATED - v2.0 Report (Quarterly Rolling)
-This report uses QUARTERLY (13-week) rolling windows.
-For the CURRENT v2.1 report with MONTHLY (4-week) rolling, see:
-  → COMPREHENSIVE_COMPARISON_REPORT_v2.1.txt
-
-====================================================================================================
 ====================================================================================================
 COMPREHENSIVE DCA ANALYSIS COMPARISON REPORT
 ====================================================================================================
-Generated: 2025-09-29 21:52:03
+Generated: 2025-10-01 00:09:14
 Period Analyzed: 2016-01-01 to 2025-09-24
 Weekly Budget: $250.00
 ====================================================================================================
@@ -23,9 +17,9 @@ Three different methodologies were used to analyze DCA strategy performance:
    - High autocorrelation: ~98% overlap
    - Best for: Pattern exploration, not statistical inference
 
-2. BALANCED ROLLING (Quarterly Steps)
-   - Moderate data: 120 simulations (~48 effective)
-   - Manageable autocorrelation: ~75% overlap
+2. BALANCED ROLLING (Monthly Steps - v2.1 OPTIMIZED)
+   - Large data: 378 simulations (~30 effective)
+   - Manageable autocorrelation: ~92% overlap
    - Best for: Standard analysis with risk metrics ⭐ RECOMMENDED
 
 3. NON-OVERLAPPING (Perfect Independence)
@@ -39,43 +33,43 @@ Three different methodologies were used to analyze DCA strategy performance:
 
 📊 DURATION SIMULATOR (Weekly Rolling)
    Simulations: 456 (≈9 effective)
-   Optimum DCA:    168.68% avg,     0.00% median (σ=2499.51%)
+   Optimum DCA:    156.01% avg,     0.00% median (σ=1716.42%)
    Simple DCA:      70.43% avg,    37.55% median (σ=121.66%)
-   Outperformance:    98.25 pp, Win Rate: 59.9%
-   Best Period: 2022-12-16 to 2023-12-15 (52535.53% return)
+   Outperformance:    85.58 pp, Win Rate: 55.3%
+   Best Period: 2024-01-26 to 2025-01-24 (35426.64% return)
 
-📊 BALANCED ROLLING (Quarterly Steps)
-   Simulations: 36 (≈14 effective)
-   Optimum DCA:    272.34% avg,     0.00% median (σ=1388.37%)
-   Simple DCA:      65.58% avg,    29.76% median (σ=124.51%)
-   Outperformance:   206.76 pp, Win Rate: 61.1%
+📊 BALANCED ROLLING (Monthly Steps - v2.1)
+   Simulations: 114 (≈9 effective)
+   Optimum DCA:     65.28% avg,     0.00% median (σ=362.39%)
+   Simple DCA:      70.71% avg,    37.77% median (σ=117.95%)
+   Outperformance:    -5.43 pp, Win Rate: 55.3%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.193, Simple=0.495
-      Sortino Ratio: Optimum=29.634, Simple=3.792
-      Max Drawdown:  Optimum=-70.00%, Simple=-80.25%
-      VaR (95%):     Optimum=-32.81%, Simple=-42.38%
+      Sharpe Ratio:  Optimum=0.169, Simple=0.566
+      Sortino Ratio: Optimum=6.177, Simple=4.791
+      Max Drawdown:  Optimum=-92.78%, Simple=-99.19%
+      VaR (95%):     Optimum=-27.65%, Simple=-40.33%
    Statistical Test:
-      P-value: 0.3822, Effect Size: 0.210
+      P-value: 0.8811, Effect Size: -0.020
       Significant at 5%: NO ❌
 
 📊 NON-OVERLAPPING (Perfect Independence)
    Simulations: 9 (all independent)
-   Optimum DCA:    114.84% avg,     0.00% median (σ=227.19%)
+   Optimum DCA:    172.94% avg,     0.00% median (σ=544.04%)
    Simple DCA:      94.07% avg,    51.58% median (σ=182.66%)
-   Outperformance:    20.78 pp, Win Rate: 66.7%
+   Outperformance:    78.88 pp, Win Rate: 33.3%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.488, Simple=0.493
-      Sortino Ratio: Optimum=168.754, Simple=11.617
-      Max Drawdown:  Optimum=-33.70%, Simple=-44.39%
-      VaR (95%):     Optimum=-33.33%, Simple=-40.00%
+      Sharpe Ratio:  Optimum=0.311, Simple=0.493
+      Sortino Ratio: Optimum=35.159, Simple=11.617
+      Max Drawdown:  Optimum=-36.75%, Simple=-44.39%
+      VaR (95%):     Optimum=-34.04%, Simple=-40.00%
    Statistical Test:
-      P-value: 0.8277, Effect Size: 0.101
+      P-value: 0.7032, Effect Size: 0.194
       Significant at 5%: NO ❌
 
    📈 METHOD COMPARISON:
-      Optimum Mean: Weekly=168.7%, Quarterly=272.3%, Non-Overlap=114.8%
-      Simple Mean:  Weekly=70.4%, Quarterly=65.6%, Non-Overlap=94.1%
-      Winner (Risk-Adj): Simple (Sharpe: 0.495)
+      Optimum Mean: Weekly=156.0%, Quarterly=65.3%, Non-Overlap=172.9%
+      Simple Mean:  Weekly=70.4%, Quarterly=70.7%, Non-Overlap=94.1%
+      Winner (Risk-Adj): Simple (Sharpe: 0.566)
 
 ====================================================================================================
 2-YEAR DURATION COMPARISON
@@ -83,43 +77,43 @@ Three different methodologies were used to analyze DCA strategy performance:
 
 📊 DURATION SIMULATOR (Weekly Rolling)
    Simulations: 404 (≈8 effective)
-   Optimum DCA:    234.92% avg,    78.73% median (σ=930.56%)
+   Optimum DCA:     85.71% avg,     0.00% median (σ=346.16%)
    Simple DCA:     145.73% avg,    87.41% median (σ=225.39%)
-   Outperformance:    89.18 pp, Win Rate: 75.7%
-   Best Period: 2019-02-22 to 2021-02-19 (16763.84% return)
+   Outperformance:   -60.02 pp, Win Rate: 45.8%
+   Best Period: 2019-07-05 to 2021-07-02 (3819.98% return)
 
-📊 BALANCED ROLLING (Quarterly Steps)
-   Simulations: 32 (≈12 effective)
-   Optimum DCA:    149.45% avg,    31.81% median (σ=252.20%)
-   Simple DCA:     159.50% avg,    90.40% median (σ=298.26%)
-   Outperformance:   -10.06 pp, Win Rate: 71.9%
+📊 BALANCED ROLLING (Monthly Steps - v2.1)
+   Simulations: 101 (≈8 effective)
+   Optimum DCA:     64.24% avg,     0.00% median (σ=204.01%)
+   Simple DCA:     152.79% avg,    93.97% median (σ=243.44%)
+   Outperformance:   -88.55 pp, Win Rate: 44.6%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.397, Simple=0.359
-      Sortino Ratio: Optimum=1.638, Simple=5.622
-      Max Drawdown:  Optimum=-163.54%, Simple=-75.45%
-      VaR (95%):     Optimum=-41.66%, Simple=-26.70%
+      Sharpe Ratio:  Optimum=0.195, Simple=0.421
+      Sortino Ratio: Optimum=3.316, Simple=6.223
+      Max Drawdown:  Optimum=-17.37%, Simple=-97.79%
+      VaR (95%):     Optimum=0.00%, Simple=-27.91%
    Statistical Test:
-      P-value: 0.8843, Effect Size: -0.036
-      Significant at 5%: NO ❌
+      P-value: 0.0080, Effect Size: -0.394
+      Significant at 5%: YES ✅
 
 📊 NON-OVERLAPPING (Perfect Independence)
    Simulations: 4 (all independent)
-   Optimum DCA:    302.61% avg,    63.76% median (σ=521.53%)
+   Optimum DCA:     27.40% avg,    13.91% median (σ=38.55%)
    Simple DCA:     480.56% avg,   141.32% median (σ=769.77%)
-   Outperformance:  -177.95 pp, Win Rate: 75.0%
+   Outperformance:  -453.17 pp, Win Rate: 50.0%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.399, Simple=0.434
+      Sharpe Ratio:  Optimum=0.356, Simple=0.434
       Sortino Ratio: Optimum=inf, Simple=inf
       Max Drawdown:  Optimum=0.00%, Simple=0.00%
-      VaR (95%):     Optimum=5.57%, Simple=19.87%
+      VaR (95%):     Optimum=0.00%, Simple=19.87%
    Statistical Test:
-      P-value: 0.7558, Effect Size: -0.271
+      P-value: 0.3349, Effect Size: -0.832
       Significant at 5%: NO ❌
 
    📈 METHOD COMPARISON:
-      Optimum Mean: Weekly=234.9%, Quarterly=149.4%, Non-Overlap=302.6%
-      Simple Mean:  Weekly=145.7%, Quarterly=159.5%, Non-Overlap=480.6%
-      Winner (Risk-Adj): Optimum (Sharpe: 0.397)
+      Optimum Mean: Weekly=85.7%, Quarterly=64.2%, Non-Overlap=27.4%
+      Simple Mean:  Weekly=145.7%, Quarterly=152.8%, Non-Overlap=480.6%
+      Winner (Risk-Adj): Simple (Sharpe: 0.421)
 
 ====================================================================================================
 3-YEAR DURATION COMPARISON
@@ -127,42 +121,42 @@ Three different methodologies were used to analyze DCA strategy performance:
 
 📊 DURATION SIMULATOR (Weekly Rolling)
    Simulations: 352 (≈7 effective)
-   Optimum DCA:    213.49% avg,   111.19% median (σ=972.73%)
+   Optimum DCA:    293.27% avg,     0.00% median (σ=1669.98%)
    Simple DCA:     171.37% avg,   123.62% median (σ=158.83%)
-   Outperformance:    42.12 pp, Win Rate: 78.7%
-   Best Period: 2018-04-20 to 2021-04-16 (1843.86% return)
+   Outperformance:   121.90 pp, Win Rate: 40.3%
+   Best Period: 2018-07-27 to 2021-07-23 (27784.47% return)
 
-📊 BALANCED ROLLING (Quarterly Steps)
-   Simulations: 28 (≈11 effective)
-   Optimum DCA:    243.81% avg,   100.29% median (σ=382.32%)
-   Simple DCA:     165.98% avg,   128.15% median (σ=156.49%)
-   Outperformance:    77.83 pp, Win Rate: 78.6%
+📊 BALANCED ROLLING (Monthly Steps - v2.1)
+   Simulations: 88 (≈7 effective)
+   Optimum DCA:    209.22% avg,     0.00% median (σ=682.71%)
+   Simple DCA:     174.23% avg,   124.41% median (σ=164.87%)
+   Outperformance:    34.99 pp, Win Rate: 39.8%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.350, Simple=0.568
-      Sortino Ratio: Optimum=0.496, Simple=29.009
-      Max Drawdown:  Optimum=-31166194127460.36%, Simple=-8.34%
-      VaR (95%):     Optimum=-12.14%, Simple=3.30%
+      Sharpe Ratio:  Optimum=0.167, Simple=0.568
+      Sortino Ratio: Optimum=inf, Simple=43.249
+      Max Drawdown:  Optimum=0.00%, Simple=-14.21%
+      VaR (95%):     Optimum=0.00%, Simple=11.23%
    Statistical Test:
-      P-value: 0.1690, Effect Size: 0.266
+      P-value: 0.5955, Effect Size: 0.070
       Significant at 5%: NO ❌
 
 📊 NON-OVERLAPPING (Perfect Independence)
    Simulations: 3 (all independent)
-   Optimum DCA:    462.24% avg,   308.08% median (σ=555.60%)
+   Optimum DCA:     99.31% avg,     0.00% median (σ=172.01%)
    Simple DCA:     266.83% avg,   225.60% median (σ=100.65%)
-   Outperformance:   195.41 pp, Win Rate: 66.7%
+   Outperformance:  -167.52 pp, Win Rate: 33.3%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.468, Simple=1.462
+      Sharpe Ratio:  Optimum=0.293, Simple=1.462
       Sortino Ratio: Optimum=inf, Simple=inf
       Max Drawdown:  Optimum=0.00%, Simple=0.00%
-      VaR (95%):     Optimum=30.81%, Simple=196.56%
+      VaR (95%):     Optimum=0.00%, Simple=196.56%
    Statistical Test:
-      P-value: 0.5436, Effect Size: 0.489
+      P-value: 0.3629, Effect Size: -1.189
       Significant at 5%: NO ❌
 
    📈 METHOD COMPARISON:
-      Optimum Mean: Weekly=213.5%, Quarterly=243.8%, Non-Overlap=462.2%
-      Simple Mean:  Weekly=171.4%, Quarterly=166.0%, Non-Overlap=266.8%
+      Optimum Mean: Weekly=293.3%, Quarterly=209.2%, Non-Overlap=99.3%
+      Simple Mean:  Weekly=171.4%, Quarterly=174.2%, Non-Overlap=266.8%
       Winner (Risk-Adj): Simple (Sharpe: 0.568)
 
 ====================================================================================================
@@ -171,43 +165,43 @@ Three different methodologies were used to analyze DCA strategy performance:
 
 📊 DURATION SIMULATOR (Weekly Rolling)
    Simulations: 300 (≈6 effective)
-   Optimum DCA:    131.80% avg,   195.65% median (σ=821.06%)
+   Optimum DCA:    158.89% avg,     0.00% median (σ=584.46%)
    Simple DCA:     245.82% avg,   187.83% median (σ=191.95%)
-   Outperformance:  -114.02 pp, Win Rate: 79.3%
-   Best Period: 2017-04-21 to 2021-04-16 (2309.64% return)
+   Outperformance:   -86.93 pp, Win Rate: 18.3%
+   Best Period: 2017-11-24 to 2021-11-19 (6502.07% return)
 
-📊 BALANCED ROLLING (Quarterly Steps)
-   Simulations: 24 (≈9 effective)
-   Optimum DCA:    162.27% avg,   207.97% median (σ=751.24%)
-   Simple DCA:     233.33% avg,   180.36% median (σ=178.20%)
-   Outperformance:   -71.05 pp, Win Rate: 79.2%
+📊 BALANCED ROLLING (Monthly Steps - v2.1)
+   Simulations: 75 (≈6 effective)
+   Optimum DCA:    165.16% avg,     0.00% median (σ=532.29%)
+   Simple DCA:     248.38% avg,   185.53% median (σ=198.45%)
+   Outperformance:   -83.22 pp, Win Rate: 18.7%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.097, Simple=0.610
-      Sortino Ratio: Optimum=0.091, Simple=inf
-      Max Drawdown:  Optimum=-153414681406083.31%, Simple=0.00%
-      VaR (95%):     Optimum=-851.76%, Simple=53.20%
+      Sharpe Ratio:  Optimum=0.140, Simple=0.586
+      Sortino Ratio: Optimum=inf, Simple=inf
+      Max Drawdown:  Optimum=0.00%, Simple=0.00%
+      VaR (95%):     Optimum=0.00%, Simple=57.09%
    Statistical Test:
-      P-value: 0.6225, Effect Size: -0.130
+      P-value: 0.1928, Effect Size: -0.207
       Significant at 5%: NO ❌
 
 📊 NON-OVERLAPPING (Perfect Independence)
    Simulations: 2 (all independent)
-   Optimum DCA:     44.35% avg,    44.35% median (σ=232.66%)
+   Optimum DCA:      0.00% avg,     0.00% median (σ=0.00%)
    Simple DCA:     252.14% avg,   252.14% median (σ=187.08%)
-   Outperformance:  -207.79 pp, Win Rate: 50.0%
+   Outperformance:  -252.14 pp, Win Rate: 0.0%
    Risk Metrics:
-      Sharpe Ratio:  Optimum=0.061, Simple=0.631
-      Sortino Ratio: Optimum=nan, Simple=inf
-      Max Drawdown:  Optimum=-0.00%, Simple=0.00%
-      VaR (95%):     Optimum=-103.71%, Simple=133.08%
+      Sharpe Ratio:  Optimum=0.000, Simple=0.631
+      Sortino Ratio: Optimum=inf, Simple=inf
+      Max Drawdown:  Optimum=0.00%, Simple=0.00%
+      VaR (95%):     Optimum=0.00%, Simple=133.08%
    Statistical Test:
-      P-value: 0.6112, Effect Size: -0.984
+      P-value: 0.3076, Effect Size: -1.906
       Significant at 5%: NO ❌
 
    📈 METHOD COMPARISON:
-      Optimum Mean: Weekly=131.8%, Quarterly=162.3%, Non-Overlap=44.3%
-      Simple Mean:  Weekly=245.8%, Quarterly=233.3%, Non-Overlap=252.1%
-      Winner (Risk-Adj): Simple (Sharpe: 0.610)
+      Optimum Mean: Weekly=158.9%, Quarterly=165.2%, Non-Overlap=0.0%
+      Simple Mean:  Weekly=245.8%, Quarterly=248.4%, Non-Overlap=252.1%
+      Winner (Risk-Adj): Simple (Sharpe: 0.586)
 
 ====================================================================================================
 KEY FINDINGS & RECOMMENDATIONS
