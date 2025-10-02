@@ -25,7 +25,7 @@ class PerfectExcelMatchingDCA:
         
     def load_excel_data(self):
         """Load Excel's exact transaction data."""
-        df_excel = pd.read_excel("Optimum DCA clubhouse.xlsx", sheet_name="20222023 WDCA", header=1)
+        df_excel = pd.read_excel("reference/Optimum DCA.xlsx", sheet_name="20222023 WDCA", header=1)
         
         # Clean data
         date_mask = df_excel['Trade Date'].astype(str).str.contains(r'\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4}|\d{1,2}-\d{1,2}-\d{4}', na=False)
