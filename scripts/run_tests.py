@@ -69,19 +69,19 @@ def main():
     
     if success:
         print("\n" + "=" * 80)
-        print("🎉 ALL TESTS PASSED!")
+        print(" ALL TESTS PASSED!")
         
         if args.coverage:
-            print("\n📊 Coverage report generated in htmlcov/")
+            print("\n Coverage report generated in htmlcov/")
             
-        print("\n📈 Key validation results:")
-        print("   ✅ Optimum DCA: 462.1% return")
-        print("   ✅ Simple DCA: 209.4% return") 
-        print("   ✅ Outperformance: ~252.7 percentage points")
+        print("\n Key validation results:")
+        print("    Optimum DCA: 462.1% return")
+        print("    Simple DCA: 209.4% return") 
+        print("    Outperformance: ~252.7 percentage points")
         
     else:
         print("\n" + "=" * 80)
-        print("❌ SOME TESTS FAILED!")
+        print(" SOME TESTS FAILED!")
         print("Please check the output above for details.")
         sys.exit(1)
 

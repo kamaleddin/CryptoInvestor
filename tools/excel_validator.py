@@ -38,7 +38,7 @@ class PerfectExcelMatchingDCA:
         """Run simulation that perfectly matches Excel."""
         
         print("="*80)
-        print("🎯 FINAL PERFECT EXCEL-MATCHING DCA SIMULATION")
+        print(" FINAL PERFECT EXCEL-MATCHING DCA SIMULATION")
         print("="*80)
         
         excel_data = self.load_excel_data()
@@ -105,7 +105,7 @@ class PerfectExcelMatchingDCA:
 def main():
     """Run the perfect comparison."""
     
-    print("🚀 FINAL PERFECT DCA COMPARISON ANALYSIS")
+    print(" FINAL PERFECT DCA COMPARISON ANALYSIS")
     print("="*80)
     
     dca = PerfectExcelMatchingDCA()
@@ -117,7 +117,7 @@ def main():
     simple_results = dca.run_simple_dca_for_comparison()
     
     # Display results
-    print("\n📊 FINAL RESULTS COMPARISON")
+    print("\n FINAL RESULTS COMPARISON")
     print("="*80)
     
     print(f"💰 Final BTC Price Used: ${optimum_results['excel_btc_price']:,.2f}")
@@ -130,7 +130,7 @@ def main():
     print(f"   Profit: ${simple_results['profit']:,.2f}")
     print(f"   Return: {simple_results['profit_pct']:.1f}%")
     
-    print(f"\n🎯 OPTIMUM DCA (EXCEL-MATCHED):")
+    print(f"\n OPTIMUM DCA (EXCEL-MATCHED):")
     print(f"   Total BTC: {optimum_results['total_btc']:.8f}")
     print(f"   Net Invested: ${optimum_results['net_investment']:,.2f}")
     print(f"   Value: ${optimum_results['holding_value']:,.2f}")
@@ -145,31 +145,31 @@ def main():
         'net_investment': 46806.51
     }
     
-    print(f"\n🎯 EXCEL VALIDATION:")
+    print(f"\n EXCEL VALIDATION:")
     print(f"   Expected Holding Value: ${excel_expected['holding_value']:,.2f}")
     print(f"   Expected Return: {excel_expected['profit_pct']:.1f}%")
     print(f"   Expected BTC: {excel_expected['total_btc']:.8f}")
     print(f"   Expected Investment: ${excel_expected['net_investment']:,.2f}")
     
-    print(f"\n✅ MATCH VERIFICATION:")
+    print(f"\n MATCH VERIFICATION:")
     value_match = abs(optimum_results['holding_value'] - excel_expected['holding_value']) < 0.01
     return_match = abs(optimum_results['profit_pct'] - excel_expected['profit_pct']) < 0.1
     btc_match = abs(optimum_results['total_btc'] - excel_expected['total_btc']) < 0.00000001
     investment_match = abs(optimum_results['net_investment'] - excel_expected['net_investment']) < 0.01
     
-    print(f"   Holding Value: {'✅ PERFECT' if value_match else '❌ MISMATCH'}")
-    print(f"   Return %: {'✅ PERFECT' if return_match else '❌ MISMATCH'}")
-    print(f"   Total BTC: {'✅ PERFECT' if btc_match else '❌ MISMATCH'}")
-    print(f"   Net Investment: {'✅ PERFECT' if investment_match else '❌ MISMATCH'}")
+    print(f"   Holding Value: {' PERFECT' if value_match else ' MISMATCH'}")
+    print(f"   Return %: {' PERFECT' if return_match else ' MISMATCH'}")
+    print(f"   Total BTC: {' PERFECT' if btc_match else ' MISMATCH'}")
+    print(f"   Net Investment: {' PERFECT' if investment_match else ' MISMATCH'}")
     
     all_perfect = value_match and return_match and btc_match and investment_match
     
     print(f"\n🏆 FINAL RESULT:")
     if all_perfect:
-        print("   🎉 PERFECT MATCH! All values exactly match Excel! 🎉")
-        print("   ⭐ Optimum DCA achieved 462% return as expected! ⭐")
+        print("    PERFECT MATCH! All values exactly match Excel! ")
+        print("    Optimum DCA achieved 462% return as expected! ")
     else:
-        print("   ⚠️  Some values still don't match perfectly.")
+        print("     Some values still don't match perfectly.")
     
     # Performance advantage
     advantage_btc = optimum_results['total_btc'] / simple_results['total_btc']

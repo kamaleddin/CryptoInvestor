@@ -300,3 +300,9 @@ README.md          # User-facing documentation
 - **VaR/CVaR**: Tail risk metrics (Optimum DCA typically better)
 
 **Choice depends on investor risk tolerance** - not statistical significance.
+
+## Important Rules
+
+1. **NO EMOJIS**: Never use emojis in code, README files, documentation, or any output unless explicitly requested by the user. Keep all text professional and emoji-free.
+2. **File Creation**: Never create files unless absolutely necessary. Always prefer editing existing files.
+3. **Documentation**: Never proactively create documentation files (*.md) or README files. Only create documentation if explicitly requested.

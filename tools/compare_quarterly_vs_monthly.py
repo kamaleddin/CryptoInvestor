@@ -17,7 +17,7 @@ def run_comparison():
     """Run both quarterly and monthly analyses for comparison."""
     
     print("="*100)
-    print("📊 QUARTERLY vs MONTHLY ROLLING WINDOW COMPARISON")
+    print(" QUARTERLY vs MONTHLY ROLLING WINDOW COMPARISON")
     print("="*100)
     print()
     print("This comparison demonstrates the benefit of using monthly (4-week) steps")
@@ -42,7 +42,7 @@ def run_comparison():
         use_non_overlapping=False,
         rolling_step_weeks=13
     )
-    print("✅ Quarterly analysis complete")
+    print(" Quarterly analysis complete")
     
     # Run monthly analysis
     print("\n" + "="*100)
@@ -52,11 +52,11 @@ def run_comparison():
         use_non_overlapping=False,
         rolling_step_weeks=4
     )
-    print("✅ Monthly analysis complete")
+    print(" Monthly analysis complete")
     
     # Compare results
     print("\n" + "="*100)
-    print("📊 DETAILED COMPARISON")
+    print(" DETAILED COMPARISON")
     print("="*100)
     
     for duration in ['1-Year', '2-Year', '3-Year', '4-Year']:
@@ -69,7 +69,7 @@ def run_comparison():
             print(f"{'='*100}")
             
             # Sample sizes
-            print(f"\n📈 SAMPLE SIZE:")
+            print(f"\n SAMPLE SIZE:")
             print(f"  Quarterly: {q['n_periods']:>3} simulations")
             print(f"  Monthly:   {m['n_periods']:>3} simulations  (+{((m['n_periods']/q['n_periods'])-1)*100:.0f}% more)")
             
@@ -80,7 +80,7 @@ def run_comparison():
             print(f"  Median Return:    {q['optimum']['median_return']*100:>7.2f}%      {m['optimum']['median_return']*100:>7.2f}%      {(m['optimum']['median_return']-q['optimum']['median_return'])*100:>7.2f} pp")
             print(f"  Volatility (σ):   {q['optimum']['std_return']*100:>7.2f}%      {m['optimum']['std_return']*100:>7.2f}%      {(m['optimum']['std_return']-q['optimum']['std_return'])*100:>7.2f} pp")
             
-            print(f"\n📊 SIMPLE DCA RETURNS:")
+            print(f"\n SIMPLE DCA RETURNS:")
             print(f"                    Quarterly        Monthly         Difference")
             print(f"  Mean Return:      {q['simple']['mean_return']*100:>7.2f}%      {m['simple']['mean_return']*100:>7.2f}%      {(m['simple']['mean_return']-q['simple']['mean_return'])*100:>7.2f} pp")
             print(f"  Median Return:    {q['simple']['median_return']*100:>7.2f}%      {m['simple']['median_return']*100:>7.2f}%      {(m['simple']['median_return']-q['simple']['median_return'])*100:>7.2f} pp")
@@ -95,7 +95,7 @@ def run_comparison():
             print(f"  Sortino (Sim):    {q['simple']['sortino_ratio']:>7.3f}        {m['simple']['sortino_ratio']:>7.3f}        {'Monthly' if m['simple']['sortino_ratio'] > q['simple']['sortino_ratio'] else 'Quarterly'}")
             
             # Statistical tests
-            print(f"\n🔬 STATISTICAL TESTS:")
+            print(f"\n STATISTICAL TESTS:")
             print(f"                    Quarterly        Monthly")
             print(f"  P-value:          {q['comparison']['significance']['t_pvalue']:>7.4f}        {m['comparison']['significance']['t_pvalue']:>7.4f}")
             print(f"  Effect Size (d):  {q['comparison']['significance']['cohens_d']:>7.3f}        {m['comparison']['significance']['cohens_d']:>7.3f}")
@@ -114,32 +114,32 @@ def run_comparison():
     print("📋 SUMMARY: QUARTERLY vs MONTHLY")
     print("="*100)
     
-    print("\n✅ ADVANTAGES OF MONTHLY (4-week steps):")
+    print("\n ADVANTAGES OF MONTHLY (4-week steps):")
     print("  • 3x MORE simulations (75-114 vs 24-36 per duration)")
     print("  • HIGHER statistical power (90% vs 35%)")
     print("  • NARROWER confidence intervals (3x more precise)")
     print("  • MORE reliable estimates")
     print("  • BETTER chance of detecting real effects")
     
-    print("\n⚠️  TRADE-OFF:")
+    print("\n  TRADE-OFF:")
     print("  • Slightly higher autocorrelation (92% vs 75% overlap)")
     print("  • But still manageable with Newey-West corrections")
     print("  • Widely accepted in finance/economics research")
     
-    print("\n🎯 RECOMMENDATION:")
-    print("  ⭐ Use MONTHLY (4-week) steps as the new default")
+    print("\n RECOMMENDATION:")
+    print("   Use MONTHLY (4-week) steps as the new default")
     print("  • Better statistical properties overall")
     print("  • Valid with standard autocorrelation corrections")
     print("  • Optimal balance of sample size and independence")
     
-    print("\n💡 WHEN TO USE EACH:")
-    print("  • Monthly (4w):    Standard analysis (NEW DEFAULT) ⭐")
+    print("\n WHEN TO USE EACH:")
+    print("  • Monthly (4w):    Standard analysis (NEW DEFAULT) ")
     print("  • Quarterly (13w): Conservative alternative")
     print("  • Weekly (1w):     Pattern exploration only (not for inference)")
     print("  • Non-overlapping: Academic papers, regulatory filings")
     
     print("\n" + "="*100)
-    print("✅ COMPARISON COMPLETE")
+    print(" COMPARISON COMPLETE")
     print("="*100)
     
     return quarterly_results, monthly_results

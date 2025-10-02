@@ -81,14 +81,14 @@ class FlexibleOptimumDCA:
 
         if self.verbose:
             print("="*80)
-            print("🚀 FLEXIBLE OPTIMUM DCA ANALYSIS")
+            print(" FLEXIBLE OPTIMUM DCA ANALYSIS")
             print("="*80)
             print("Calculating ALL values from CSV data - no Excel constants")
         if self.verbose:
             if self.is_test_case:
-                print("🧪 Running TEST CASE - expecting 462.1% return")
+                print(" Running TEST CASE - expecting 462.1% return")
             else:
-                print(f"📊 Custom analysis: {self.start_date} to {self.end_date}")
+                print(f" Custom analysis: {self.start_date} to {self.end_date}")
 
         df = pd.read_csv("data/bitcoin_prices.csv")
         df['date'] = pd.to_datetime(df['date'], format='%m-%d-%Y', errors='coerce')
@@ -333,8 +333,21 @@ class FlexibleOptimumDCA:
             print(f"Calculated T2: {self.T2_mean_volatility:.15f}")
             print(f"Calculated X2: {self.X2_volatility_factor:.15f}")
 
+        # Calculate reserve cap based on X2 volatility (Excel formula: 2 * abs(X2))
+        reserve_cap_pct = 2 * abs(self.X2_volatility_factor)
+        max_reserve = self.weekly_budget * len(target_df) * reserve_cap_pct
+
+        if self.verbose:
+            print(f"Reserve cap: {reserve_cap_pct:.1%} of total investment")
+            print(f"Max reserve: ${max_reserve:,.2f}")
+
         # Calculate investment signals for each week
         results = []
+        running_btc_balance = 0.0  # Track BTC balance (can go negative for paper trading)
+        net_investment = 0.0  # Track net investment (can go negative when selling)
+        cash_reserve = max_reserve  # Start with full reserve available
+        total_cash_invested = 0.0  # Track actual cash put in (weekly budgets)
+
         for i, row in target_df.iterrows():
             # Calculate base investment multiple from weekly price logic
             investment_multiple_base = self.calculate_investment_multiple(row)
@@ -351,10 +364,38 @@ class FlexibleOptimumDCA:
                 investment_multiple = investment_multiple_base
 
             buy_sell_multiplier = self.calculate_buy_sell_multiplier(row, investment_multiple)
-            investment_amount = self.calculate_investment_amount(investment_multiple, buy_sell_multiplier)
+            desired_investment = self.calculate_investment_amount(investment_multiple, buy_sell_multiplier)
 
-            # Calculate BTC purchased
-            btc_purchased = investment_amount / row['Price']
+            # Determine actual transaction based on available resources
+            actual_investment = 0
+            btc_transaction = 0
+            action = "hold"
+            weekly_budget_used = 0
+
+            # Add weekly budget
+            total_cash_invested += self.weekly_budget
+
+            # For Excel-like behavior: allow all trades (even going negative)
+            # This is more like paper trading / theoretical returns
+            actual_investment = desired_investment
+            btc_transaction = actual_investment / row['Price'] if row['Price'] > 0 else 0
+
+            # Track the action
+            if actual_investment > 0:
+                action = "buy"
+            elif actual_investment < 0:
+                action = "sell"
+            else:
+                action = "hold"
+
+            # Update net investment (can go negative)
+            net_investment += actual_investment
+
+            # For reserve tracking: add weekly budget and track what remains
+            cash_reserve += self.weekly_budget - actual_investment
+
+            # Update running balance
+            running_btc_balance += btc_transaction
 
             # Store weekly result
             results.append({
@@ -362,29 +403,52 @@ class FlexibleOptimumDCA:
                 'price': row['Price'],
                 'investment_multiple': investment_multiple,
                 'buy_sell_multiplier': buy_sell_multiplier,
-                'investment_amount': investment_amount,
-                'btc_purchased': btc_purchased
+                'desired_investment': desired_investment,
+                'actual_investment': actual_investment,
+                'btc_purchased': btc_transaction,
+                'btc_balance': running_btc_balance,
+                'net_investment': net_investment,
+                'cash_reserve': cash_reserve,
+                'action': action,
+                'portfolio_value': running_btc_balance * row['Price'] + cash_reserve
             })
 
         # Calculate final metrics
-        total_btc = sum(r['btc_purchased'] for r in results)
-        total_investment = sum(r['investment_amount'] for r in results)
-        final_value = total_btc * self.final_btc_price
-        profit = final_value - total_investment
-        profit_pct = (profit / total_investment) * 100 if total_investment > 0 else 0
-        
+        total_btc = running_btc_balance  # Allow negative for paper trading
+        final_btc_value = total_btc * self.final_btc_price
+        final_portfolio_value = final_btc_value + cash_reserve
+
+        # Calculate profit based on net investment (like Excel)
+        # If net_investment is positive: we put money in
+        # If net_investment is negative: we took money out (profitable sells)
+        if net_investment > 0:
+            # Normal case: we invested money
+            profit = final_btc_value - net_investment
+            profit_pct = (profit / net_investment) * 100
+        else:
+            # We've taken out more than invested (very profitable)
+            # Use total cash invested as denominator for meaningful %
+            profit = final_btc_value - net_investment  # Will be positive since net_investment is negative
+            profit_pct = (profit / total_cash_invested) * 100 if total_cash_invested > 0 else 0
+
         return {
             'strategy': 'Optimum DCA (Dynamic)',
             'total_btc': total_btc,
-            'total_investment': total_investment,
-            'holding_value': final_value,
+            'net_investment': net_investment,
+            'cash_reserve': cash_reserve,
+            'total_cash_invested': total_cash_invested,
+            'btc_value': final_btc_value,
+            'portfolio_value': final_portfolio_value,
             'profit': profit,
             'profit_pct': profit_pct,
             'weekly_results': results,
             'calculated_T2': self.T2_mean_volatility,
             'calculated_X2': self.X2_volatility_factor,
             'period_weeks': len(target_df),
-            'is_test_case': self.is_test_case
+            'is_test_case': self.is_test_case,
+            # Legacy fields for backward compatibility
+            'total_investment': net_investment if net_investment > 0 else total_cash_invested,
+            'holding_value': final_btc_value
         }
     
     def run_simple_dca_simulation(self) -> Dict:
@@ -430,7 +494,7 @@ class FlexibleOptimumDCA:
         """Run test case validation to ensure accuracy."""
         
         print("="*80)
-        print("🧪 RUNNING TEST CASE VALIDATION")
+        print(" RUNNING TEST CASE VALIDATION")
         print("="*80)
         
         # Create test case instance
@@ -448,13 +512,13 @@ class FlexibleOptimumDCA:
         value_match = abs(test_results['holding_value'] - self.TEST_EXPECTED_VALUE) < 1
         btc_match = abs(test_results['total_btc'] - self.TEST_EXPECTED_BTC) < 0.00001
         
-        print(f"✅ Test Results:")
-        print(f"   Return: {test_results['profit_pct']:.1f}% (Expected: {self.TEST_EXPECTED_RETURN:.1f}%) {'✅' if return_match else '❌'}")
-        print(f"   Value: ${test_results['holding_value']:,.2f} (Expected: ${self.TEST_EXPECTED_VALUE:,.2f}) {'✅' if value_match else '❌'}")
-        print(f"   BTC: {test_results['total_btc']:.8f} (Expected: {self.TEST_EXPECTED_BTC:.8f}) {'✅' if btc_match else '❌'}")
+        print(f" Test Results:")
+        print(f"   Return: {test_results['profit_pct']:.1f}% (Expected: {self.TEST_EXPECTED_RETURN:.1f}%) {'' if return_match else ''}")
+        print(f"   Value: ${test_results['holding_value']:,.2f} (Expected: ${self.TEST_EXPECTED_VALUE:,.2f}) {'' if value_match else ''}")
+        print(f"   BTC: {test_results['total_btc']:.8f} (Expected: {self.TEST_EXPECTED_BTC:.8f}) {'' if btc_match else ''}")
         
         all_match = return_match and value_match and btc_match
-        print(f"\n🎯 Test Case Validation: {'✅ PASSED' if all_match else '❌ FAILED'}")
+        print(f"\n Test Case Validation: {' PASSED' if all_match else ' FAILED'}")
         
         return all_match
 
@@ -506,12 +570,12 @@ def main():
     
     # Display results
     print("\n" + "="*80)
-    print("📊 FLEXIBLE DCA ANALYSIS RESULTS")
+    print(" FLEXIBLE DCA ANALYSIS RESULTS")
     print("="*80)
     print(f"Period: {test_dca.start_date} to {test_dca.end_date}")
     print(f"Weekly Budget: ${test_dca.weekly_budget:.2f}")
     print(f"BTC Price Used: ${test_dca.final_btc_price:,.2f}")
-    print(f"Test Case: {'✅ YES' if optimum_results['is_test_case'] else '❌ NO'}")
+    print(f"Test Case: {' YES' if optimum_results['is_test_case'] else ' NO'}")
     
     strategies = [
         ('Optimum DCA', optimum_results),
@@ -519,7 +583,7 @@ def main():
     ]
     
     for strategy_name, results in strategies:
-        print(f"\n🎯 {strategy_name.upper()}:")
+        print(f"\n {strategy_name.upper()}:")
         print(f"   Weeks Analyzed: {results['period_weeks']}")
         print(f"   Total BTC: {results['total_btc']:.8f}")
         print(f"   Investment: ${results['total_investment']:,.2f}")

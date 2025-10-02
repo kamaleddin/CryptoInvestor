@@ -316,7 +316,7 @@ class EnhancedStatisticalAnalyzer:
         Run comprehensive enhanced statistical comparison.
         """
         print("="*80)
-        print("🔬 ENHANCED STATISTICAL ANALYSIS")
+        print(" ENHANCED STATISTICAL ANALYSIS")
         print("="*80)
         print("Running advanced statistical tests with proper corrections...")
         print()
@@ -327,7 +327,7 @@ class EnhancedStatisticalAnalyzer:
         returns = price_series.pct_change().dropna()
 
         # 1. Stationarity Testing
-        print("📊 STATIONARITY ANALYSIS")
+        print(" STATIONARITY ANALYSIS")
         print("-"*40)
         price_stationarity = self.test_stationarity(price_series)
         returns_stationarity = self.test_stationarity(returns)
@@ -340,7 +340,7 @@ class EnhancedStatisticalAnalyzer:
         print(f"  KPSS p-value: {returns_stationarity['kpss_pvalue']:.4f}")
 
         # 2. Autocorrelation Testing
-        print("\n📊 AUTOCORRELATION ANALYSIS")
+        print("\n AUTOCORRELATION ANALYSIS")
         print("-"*40)
         autocorr = self.test_autocorrelation(returns.values)
         print(f"Autocorrelation: {autocorr['autocorr_interpretation']}")
@@ -348,7 +348,7 @@ class EnhancedStatisticalAnalyzer:
             print(f"  First significant lag: {autocorr['first_significant_lag']}")
 
         # 3. Regime Detection
-        print("\n📊 MARKET REGIME ANALYSIS")
+        print("\n MARKET REGIME ANALYSIS")
         print("-"*40)
         regimes = self.regime_detection(returns)
         print(f"Current regime: {regimes['current_regime']}")
@@ -360,7 +360,7 @@ class EnhancedStatisticalAnalyzer:
             print(f"  Sharpe: {stats['sharpe']:.4f}")
 
         # 4. Tail Risk Analysis
-        print("\n📊 TAIL RISK ANALYSIS")
+        print("\n TAIL RISK ANALYSIS")
         print("-"*40)
         tail_risk = self.tail_risk_analysis(returns.values)
         print(f"Distribution: {tail_risk['tail_interpretation']}")
@@ -369,7 +369,7 @@ class EnhancedStatisticalAnalyzer:
         print(f"  Right tail (99%): {tail_risk['right_tail_99%']:.4f}")
 
         # 5. Run DCA simulations for multiple durations
-        print("\n📊 DCA STRATEGY COMPARISON")
+        print("\n DCA STRATEGY COMPARISON")
         print("-"*40)
 
         durations = [52, 104, 156, 208]  # 1, 2, 3, 4 years
@@ -411,7 +411,7 @@ class EnhancedStatisticalAnalyzer:
             print(f"  Difference: {results[f'{duration_weeks//52}Y']['difference']:.1f}pp")
 
         # 6. Multiple Comparison Correction
-        print("\n📊 MULTIPLE COMPARISON CORRECTION")
+        print("\n MULTIPLE COMPARISON CORRECTION")
         print("-"*40)
         corrections = self.multiple_comparison_correction(p_values, method='fdr_bh')
         print(f"Correction method: Benjamini-Hochberg FDR")
@@ -420,7 +420,7 @@ class EnhancedStatisticalAnalyzer:
         print(f"Any significant after correction: {corrections['any_significant']}")
 
         # 7. Monte Carlo Simulation
-        print("\n📊 MONTE CARLO SIMULATION (10,000 runs)")
+        print("\n MONTE CARLO SIMULATION (10,000 runs)")
         print("-"*40)
         mc_results = self.monte_carlo_simulation(returns.values, n_periods=52)
         print(f"Expected 1-year return: {mc_results['mean_return']:.1%}")
@@ -449,15 +449,15 @@ def main():
     results = analyzer.run_enhanced_comparison()
 
     print("\n" + "="*80)
-    print("✅ ENHANCED ANALYSIS COMPLETE")
+    print(" ENHANCED ANALYSIS COMPLETE")
     print("="*80)
-    print("\n⚠️  KEY INSIGHTS:")
+    print("\n  KEY INSIGHTS:")
     print("  1. Returns are stationary (good for analysis)")
     print("  2. Significant autocorrelation exists (use block bootstrap)")
     print("  3. Market has distinct volatility regimes")
     print("  4. Returns have fat tails (use t-distribution, not normal)")
     print("  5. Multiple comparison correction is essential")
-    print("\n🎯 RECOMMENDATION:")
+    print("\n RECOMMENDATION:")
     print("  Use these advanced methods for more accurate DCA comparisons")
 
     return results

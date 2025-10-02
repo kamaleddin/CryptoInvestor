@@ -275,7 +275,7 @@ class PairedStrategyComparison:
         Run comprehensive paired analysis for multiple durations.
         """
         print("="*80)
-        print("🔬 PAIRED STRATEGY COMPARISON ANALYSIS")
+        print(" PAIRED STRATEGY COMPARISON ANALYSIS")
         print("="*80)
         print("Using paired tests for maximum statistical power")
         print()
@@ -284,7 +284,7 @@ class PairedStrategyComparison:
 
         for duration_weeks in durations:
             duration_name = f'{duration_weeks//52}Y'
-            print(f"\n📊 ANALYZING {duration_name} DURATION")
+            print(f"\n ANALYZING {duration_name} DURATION")
             print("-"*40)
 
             # Generate paired samples
@@ -402,7 +402,7 @@ class PairedStrategyComparison:
         plt.savefig(filename, dpi=100)
         plt.close()
 
-        print(f"  📊 Visualization saved to: {filename}")
+        print(f"   Visualization saved to: {filename}")
 
 def main():
     """Run paired comparison analysis."""
@@ -410,7 +410,7 @@ def main():
     results = analyzer.run_comprehensive_paired_analysis()
 
     print("\n" + "="*80)
-    print("📊 SUMMARY OF PAIRED ANALYSIS")
+    print(" SUMMARY OF PAIRED ANALYSIS")
     print("="*80)
 
     # Summary table
@@ -418,7 +418,7 @@ def main():
     print("-"*40)
     for duration, data in results.items():
         p_value = data['statistical_tests']['paired_t_pvalue']
-        significant = "YES ✅" if p_value < 0.05 else "NO ❌"
+        significant = "YES " if p_value < 0.05 else "NO "
         winner = data['consistency']['consistent_winner']
         print(f"{duration}: p={p_value:.4f} - {significant} - Winner: {winner}")
 
@@ -430,9 +430,9 @@ def main():
         print(f"{duration}: IR={ir:.3f} - Winner: {winner}")
 
     print("\n" + "="*80)
-    print("✅ PAIRED ANALYSIS COMPLETE")
+    print(" PAIRED ANALYSIS COMPLETE")
     print("="*80)
-    print("\n🎯 KEY ADVANTAGES OF PAIRED TESTING:")
+    print("\n KEY ADVANTAGES OF PAIRED TESTING:")
     print("  1. Higher statistical power (same market conditions)")
     print("  2. Controls for external factors")
     print("  3. Enables correlation analysis")

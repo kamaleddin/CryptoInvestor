@@ -153,14 +153,14 @@ class DurationSimulator:
             
         except Exception as e:
             if self.verbose:
-                print(f"❌ Error simulating {start_date} to {end_date}: {e}")
+                print(f" Error simulating {start_date} to {end_date}: {e}")
             return None
     
     def run_all_simulations(self) -> pd.DataFrame:
         """Run all simulations for all durations."""
         
         print("="*80)
-        print("🚀 INVESTMENT DURATION SIMULATOR")
+        print(" INVESTMENT DURATION SIMULATOR")
         print("="*80)
         print(f"Overall Period: {self.overall_start} to {self.overall_end}")
         print(f"Weekly Budget: ${self.weekly_budget:.2f}")
@@ -175,7 +175,7 @@ class DurationSimulator:
             start_dates = self._generate_start_dates(duration_weeks)
             total_simulations += len(start_dates)
         
-        print(f"\n📊 Total simulations to run: {total_simulations:,}")
+        print(f"\n Total simulations to run: {total_simulations:,}")
         print()
         
         current_sim = 0
@@ -210,7 +210,7 @@ class DurationSimulator:
         
         if self.verbose:
             print(f"\n{'='*80}")
-            print(f"✅ Completed {len(all_results):,} simulations successfully")
+            print(f" Completed {len(all_results):,} simulations successfully")
             print(f"{'='*80}\n")
         
         # Convert to DataFrame
@@ -312,7 +312,7 @@ class DurationSimulator:
         """Print comprehensive summary report."""
         
         print("\n" + "="*80)
-        print("📊 COMPREHENSIVE PERFORMANCE SUMMARY")
+        print(" COMPREHENSIVE PERFORMANCE SUMMARY")
         print("="*80)
         
         # Print summary for each duration
@@ -327,7 +327,7 @@ class DurationSimulator:
             print(f"{'='*80}")
             print(f"Total Simulations: {stats['total_runs']:,}")
             
-            print(f"\n🎯 OPTIMUM DCA PERFORMANCE:")
+            print(f"\n OPTIMUM DCA PERFORMANCE:")
             print(f"   Average Return:    {stats['optimum']['avg_return']:>10.2f}%")
             print(f"   Median Return:     {stats['optimum']['median_return']:>10.2f}%")
             print(f"   Return Range:      {stats['optimum']['min_return']:>10.2f}% to {stats['optimum']['max_return']:>10.2f}%")
@@ -337,7 +337,7 @@ class DurationSimulator:
             print(f"   Avg Final Value:   ${stats['optimum']['avg_value']:>15,.2f}")
             print(f"   Avg BTC Acquired:  {stats['optimum']['avg_btc']:>10.8f}")
             
-            print(f"\n📈 SIMPLE DCA PERFORMANCE:")
+            print(f"\n SIMPLE DCA PERFORMANCE:")
             print(f"   Average Return:    {stats['simple']['avg_return']:>10.2f}%")
             print(f"   Median Return:     {stats['simple']['median_return']:>10.2f}%")
             print(f"   Return Range:      {stats['simple']['min_return']:>10.2f}% to {stats['simple']['max_return']:>10.2f}%")
@@ -448,7 +448,7 @@ def main():
     simulator.generate_summary_report(summary)
     
     print("\n" + "="*80)
-    print("✅ SIMULATION COMPLETE")
+    print(" SIMULATION COMPLETE")
     print("="*80)
     print("\nFiles generated:")
     print("  1. duration_simulation_detailed_report.csv - All simulation results")

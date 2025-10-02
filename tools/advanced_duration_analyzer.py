@@ -347,7 +347,7 @@ class AdvancedDurationAnalyzer:
         """
         
         print("="*80)
-        print("🔬 ADVANCED STATISTICAL ANALYSIS")
+        print(" ADVANCED STATISTICAL ANALYSIS")
         print("="*80)
         print(f"Period: {self.overall_start} to {self.overall_end}")
         print(f"Weekly Budget: ${self.weekly_budget:.2f}")
@@ -360,7 +360,7 @@ class AdvancedDurationAnalyzer:
         for duration_name, duration_weeks in self.durations.items():
             if self.verbose:
                 print(f"\n{'='*80}")
-                print(f"📊 Analyzing {duration_name} Duration ({duration_weeks} weeks)")
+                print(f" Analyzing {duration_name} Duration ({duration_weeks} weeks)")
                 print(f"{'='*80}")
             
             # Generate periods
@@ -492,7 +492,7 @@ class AdvancedDurationAnalyzer:
         """Print comprehensive analysis report."""
         
         print("\n" + "="*80)
-        print("📊 COMPREHENSIVE STATISTICAL REPORT")
+        print(" COMPREHENSIVE STATISTICAL REPORT")
         print("="*80)
         
         for duration, stats in results.items():
@@ -506,13 +506,13 @@ class AdvancedDurationAnalyzer:
             sim = stats['simple']
             comp = stats['comparison']
             
-            print(f"\n🎯 RETURNS:")
+            print(f"\n RETURNS:")
             print(f"                        Optimum           Simple          Difference")
             print(f"  Mean Return:      {opt['mean_return']*100:>8.2f}%      {sim['mean_return']*100:>8.2f}%      {(opt['mean_return']-sim['mean_return'])*100:>8.2f}%")
             print(f"  Median Return:    {opt['median_return']*100:>8.2f}%      {sim['median_return']*100:>8.2f}%      {(opt['median_return']-sim['median_return'])*100:>8.2f}%")
             print(f"  95% CI:           [{opt['mean_ci'][1]*100:>6.2f}%, {opt['mean_ci'][2]*100:>6.2f}%]  [{sim['mean_ci'][1]*100:>6.2f}%, {sim['mean_ci'][2]*100:>6.2f}%]")
             
-            print(f"\n📊 RISK METRICS:")
+            print(f"\n RISK METRICS:")
             print(f"                        Optimum           Simple          Winner")
             print(f"  Volatility (σ):   {opt['std_return']*100:>8.2f}%      {sim['std_return']*100:>8.2f}%      {'Simple' if sim['std_return'] < opt['std_return'] else 'Optimum'}")
             print(f"  Max Drawdown:     {opt['max_drawdown']*100:>8.2f}%      {sim['max_drawdown']*100:>8.2f}%      {'Simple' if abs(sim['max_drawdown']) < abs(opt['max_drawdown']) else 'Optimum'}")
@@ -525,7 +525,7 @@ class AdvancedDurationAnalyzer:
             print(f"  Sortino Ratio:    {opt['sortino_ratio']:>8.3f}         {sim['sortino_ratio']:>8.3f}         {'Optimum' if opt['sortino_ratio'] > sim['sortino_ratio'] else 'Simple'}")
             print(f"  Win Rate:         {opt['win_rate']*100:>8.2f}%      {sim['win_rate']*100:>8.2f}%      {'Optimum' if opt['win_rate'] > sim['win_rate'] else 'Simple'}")
             
-            print(f"\n📈 DISTRIBUTION ANALYSIS:")
+            print(f"\n DISTRIBUTION ANALYSIS:")
             opt_dist = opt['distribution']
             sim_dist = sim['distribution']
             if opt_dist and sim_dist and 'skewness' in opt_dist and 'skewness' in sim_dist:
@@ -536,24 +536,24 @@ class AdvancedDurationAnalyzer:
             else:
                 print(f"  (Sample size too small for distribution analysis)")
             
-            print(f"\n🔬 STATISTICAL SIGNIFICANCE:")
+            print(f"\n STATISTICAL SIGNIFICANCE:")
             sig = comp['significance']
             print(f"  Outperformance Rate:    {comp['outperformance_rate']*100:.1f}%")
             print(f"  Mean Outperformance:    {comp['mean_outperformance']:.2f} pp")
             print(f"  T-statistic:            {sig['t_statistic']:.3f}")
             print(f"  P-value:                {sig['t_pvalue']:.4f}")
             print(f"  Effect Size (Cohen's d): {sig['cohens_d']:.3f}")
-            print(f"  Significant at 5%:      {sig['significant_at_5pct']} {'✅' if sig['significant_at_5pct'] else '❌'}")
-            print(f"  Significant at 1%:      {sig['significant_at_1pct']} {'✅' if sig['significant_at_1pct'] else '❌'}")
+            print(f"  Significant at 5%:      {sig['significant_at_5pct']} {'' if sig['significant_at_5pct'] else ''}")
+            print(f"  Significant at 1%:      {sig['significant_at_1pct']} {'' if sig['significant_at_1pct'] else ''}")
             
             # Interpretation
             if sig['significant_at_5pct']:
                 if comp['mean_outperformance'] > 0:
-                    print(f"\n  ✅ CONCLUSION: Optimum DCA is STATISTICALLY SIGNIFICANTLY better than Simple DCA")
+                    print(f"\n   CONCLUSION: Optimum DCA is STATISTICALLY SIGNIFICANTLY better than Simple DCA")
                 else:
-                    print(f"\n  ⚠️  CONCLUSION: Simple DCA is STATISTICALLY SIGNIFICANTLY better than Optimum DCA")
+                    print(f"\n    CONCLUSION: Simple DCA is STATISTICALLY SIGNIFICANTLY better than Optimum DCA")
             else:
-                print(f"\n  ❌ CONCLUSION: No statistically significant difference between strategies")
+                print(f"\n   CONCLUSION: No statistically significant difference between strategies")
 
 def main():
     """Run advanced statistical analysis."""
@@ -576,7 +576,7 @@ def main():
     analyzer.print_analysis_report(results)
     
     print("\n" + "="*80)
-    print("✅ ADVANCED ANALYSIS COMPLETE")
+    print(" ADVANCED ANALYSIS COMPLETE")
     print("="*80)
     
     return results

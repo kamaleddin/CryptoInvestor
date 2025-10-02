@@ -25,13 +25,13 @@ def main():
     """Run balanced analysis with monthly rolling windows."""
     
     print("="*80)
-    print("🎯 BALANCED ROLLING WINDOW ANALYSIS (OPTIMIZED)")
+    print(" BALANCED ROLLING WINDOW ANALYSIS (OPTIMIZED)")
     print("="*80)
     print("Using MONTHLY steps (4 weeks) for optimal balance:")
-    print("  ✅ 3x MORE simulations (vs quarterly)")
-    print("  ✅ HIGH statistical power (90% vs 35%)")
-    print("  ✅ NARROW confidence intervals (3x more precise)")
-    print("  ✅ Valid with autocorrelation corrections")
+    print("   3x MORE simulations (vs quarterly)")
+    print("   HIGH statistical power (90% vs 35%)")
+    print("   NARROW confidence intervals (3x more precise)")
+    print("   Valid with autocorrelation corrections")
     print("="*80)
     
     # Run with monthly rolling (4-week steps) - OPTIMIZED
@@ -54,18 +54,18 @@ def main():
     
     # Additional analysis
     print("\n" + "="*80)
-    print("📊 AUTOCORRELATION ANALYSIS")
+    print(" AUTOCORRELATION ANALYSIS")
     print("="*80)
     print("\nApproximate autocorrelation by step size:")
     print("  Weekly (1-week):     ≈ 98% overlap → Very high autocorrelation")
     print("  Bi-weekly (2-week):  ≈ 96% overlap → High autocorrelation")
-    print("  Monthly (4-week):    ≈ 92% overlap → Manageable autocorrelation ✅ CURRENT")
-    print("  Quarterly (13-week): ≈ 75% overlap → Lower autocorrelation ⚠️  Old default")
+    print("  Monthly (4-week):    ≈ 92% overlap → Manageable autocorrelation  CURRENT")
+    print("  Quarterly (13-week): ≈ 75% overlap → Lower autocorrelation   Old default")
     print("  Semi-annual (26w):   ≈ 50% overlap → Low autocorrelation")
     print("  Annual (52-week):    ≈ 0% overlap  → No autocorrelation")
     
     print("\n" + "="*80)
-    print("📈 SAMPLE SIZE COMPARISON")
+    print(" SAMPLE SIZE COMPARISON")
     print("="*80)
     
     for duration in ['1-Year', '2-Year', '3-Year', '4-Year']:
@@ -77,15 +77,15 @@ def main():
             print(f"  Statistical Power: {'Excellent' if n > 80 else 'Good' if n > 40 else 'Moderate'}")
     
     print("\n" + "="*80)
-    print("✅ BALANCED ANALYSIS COMPLETE (OPTIMIZED)")
+    print(" BALANCED ANALYSIS COMPLETE (OPTIMIZED)")
     print("="*80)
-    print("\n⭐ RECOMMENDED: Use this for most analyses")
-    print("  ✅ 3x more simulations than quarterly (378 vs 120)")
-    print("  ✅ HIGH statistical power (90% vs 35%)")
-    print("  ✅ NARROW confidence intervals (3x more precise)")
-    print("  ✅ Autocorrelation manageable with Newey-West corrections")
-    print("  ✅ Robust standard errors via bootstrap")
-    print("  ✅ Practical for decision-making")
+    print("\n RECOMMENDED: Use this for most analyses")
+    print("   3x more simulations than quarterly (378 vs 120)")
+    print("   HIGH statistical power (90% vs 35%)")
+    print("   NARROW confidence intervals (3x more precise)")
+    print("   Autocorrelation manageable with Newey-West corrections")
+    print("   Robust standard errors via bootstrap")
+    print("   Practical for decision-making")
     
     return results
 

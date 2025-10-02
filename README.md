@@ -1,4 +1,4 @@
-# 🚀 CryptoInvestor - DCA Strategy Analysis Suite v2.3
+#  CryptoInvestor - DCA Strategy Analysis Suite v2.3
 
 A comprehensive cryptocurrency investment analysis toolkit implementing and comparing multiple Dollar Cost Averaging (DCA) strategies with **statistically rigorous** performance evaluation.
 
@@ -6,16 +6,16 @@ A comprehensive cryptocurrency investment analysis toolkit implementing and comp
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-### 🎯 **Five Analysis Approaches**
+###  **Five Analysis Approaches**
 - **Duration Simulator**: 1,512 simulations for pattern exploration
-- **Balanced Rolling** ⭐: Recommended for standard analysis with risk metrics
+- **Balanced Rolling** : Recommended for standard analysis with risk metrics
 - **Advanced Non-Overlapping**: Academic-grade statistical rigor
-- **Enhanced Statistical Analyzer** 🆕: Block bootstrap, fat-tailed distributions, regime detection
-- **Paired Strategy Comparison** 🆕: Maximum statistical power through paired testing
+- **Enhanced Statistical Analyzer** : Block bootstrap, fat-tailed distributions, regime detection
+- **Paired Strategy Comparison** : Maximum statistical power through paired testing
 
-### 📊 **Comprehensive Metrics**
+###  **Comprehensive Metrics**
 - Raw returns (mean, median, volatility)
 - Risk-adjusted performance (Sharpe, Sortino, Calmar, Omega ratios)
 - Tail risk analysis (VaR, CVaR, maximum drawdown, Ulcer Index)
@@ -25,16 +25,16 @@ A comprehensive cryptocurrency investment analysis toolkit implementing and comp
 - Volatility regime detection
 - Fat-tailed distribution fitting (t-distribution)
 
-### 💯 **Production Ready**
+###  **Production Ready**
 - Standalone implementation (no Excel dependency)
-- **Fully tested (90 comprehensive tests, 100% pass rate)** ✅
+- **Fully tested (90 comprehensive tests, 100% pass rate)** 
 - Professional documentation and methodology papers
 - Clean project structure following Python best practices
 - Advanced statistical methods validated by comprehensive test suites
 
 ---
 
-## 🎯 Quick Start
+##  Quick Start
 
 ### Installation
 
@@ -87,42 +87,42 @@ cat docs/methodology/STATISTICAL_METHODOLOGY_COMPARISON.md
 
 ---
 
-## 📊 Key Findings
+##  Key Findings
 
-### 🚨 **Revolutionary Finding: Simple DCA Significantly Outperforms**
+###  **Revolutionary Finding: Simple DCA Significantly Outperforms**
 
 Using enhanced statistical methods (paired testing, block bootstrap, fat-tailed distributions), we discovered that **Simple DCA significantly outperforms Optimum DCA** across all investment horizons. This is a complete reversal from the Excel test case results.
 
-### 🏆 **Performance Summary** (Paired Testing v2.2 - NEW)
+###  **Performance Summary** (Paired Testing v2.2 - NEW)
 
 | Duration | Optimum Avg | Simple Avg | Difference | Information Ratio | P-Value | Winner |
 |----------|-------------|------------|------------|-------------------|---------|---------|
-| **1-Year** | 1,184% | 2,441% | -1,257pp | -0.165 | 0.081 ❌ | **Simple** |
-| **2-Year** | 632% | 1,847% | -1,214pp | -0.377 | 0.0003 ✅ | **Simple** |
-| **3-Year** | 604% | 1,632% | -1,027pp | -0.368 | 0.0009 ✅ | **Simple** |
-| **4-Year** | 376% | 1,526% | -1,150pp | -0.477 | 0.0001 ✅ | **Simple** |
+| **1-Year** | 1,184% | 2,441% | -1,257pp | -0.165 | 0.081  | **Simple** |
+| **2-Year** | 632% | 1,847% | -1,214pp | -0.377 | 0.0003  | **Simple** |
+| **3-Year** | 604% | 1,632% | -1,027pp | -0.368 | 0.0009  | **Simple** |
+| **4-Year** | 376% | 1,526% | -1,150pp | -0.477 | 0.0001  | **Simple** |
 
-✅ = Statistically significant | ❌ = Not statistically significant | pp = percentage points
+ = Statistically significant |  = Not statistically significant | pp = percentage points
 
-**🔥 Breakthrough**: Simple DCA **massively outperforms** by 1,000-1,200 percentage points with statistical significance!
+** Breakthrough**: Simple DCA **massively outperforms** by 1,000-1,200 percentage points with statistical significance!
 
-### 🛡️ **Risk Analysis**
+###  **Risk Analysis**
 
 **Optimum DCA Characteristics:**
-- ✅ Better downside protection (lower VaR: -27.7% vs -40.3% at 1-year)
-- ✅ Superior Sortino ratios (downside-risk-adjusted returns)
-- ✅ Lower maximum drawdowns in most periods
-- ❌ Extremely high volatility (362% vs 118% at 1-year)
-- ❌ Low win rates (18-39% vs Simple's 77-100%)
+-  Better downside protection (lower VaR: -27.7% vs -40.3% at 1-year)
+-  Superior Sortino ratios (downside-risk-adjusted returns)
+-  Lower maximum drawdowns in most periods
+-  Extremely high volatility (362% vs 118% at 1-year)
+-  Low win rates (18-39% vs Simple's 77-100%)
 
 **Simple DCA Characteristics:**
-- ✅ Superior Sharpe ratios (0.421-0.586 vs Optimum's 0.140-0.195)
-- ✅ More consistent returns (lower standard deviation)
-- ✅ Higher win rates (77-100% success rate)
-- ✅ Much lower volatility
-- ❌ Higher tail risk in extreme downturns
+-  Superior Sharpe ratios (0.421-0.586 vs Optimum's 0.140-0.195)
+-  More consistent returns (lower standard deviation)
+-  Higher win rates (77-100% success rate)
+-  Much lower volatility
+-  Higher tail risk in extreme downturns
 
-### 💡 **Practical Recommendations**
+###  **Practical Recommendations**
 
 **Choose Simple DCA if you:**
 - Want predictable, consistent returns
@@ -138,7 +138,7 @@ Using enhanced statistical methods (paired testing, block bootstrap, fat-tailed 
 - Have very short horizons during confirmed bull markets
 - Can actively monitor and adjust positions
 
-### 🔬 **Enhanced Statistical Analysis (v2.2)**
+###  **Enhanced Statistical Analysis (v2.2)**
 
 Our new statistical tools revealed critical insights:
 
@@ -156,7 +156,7 @@ Our new statistical tools revealed critical insights:
 
 **Key Discovery**: The Excel test case (2022-2025) was an anomaly. Full historical analysis shows Simple DCA dominates.
 
-### 🏆 **Final Verdict**
+###  **Final Verdict**
 
 **Simple DCA is the clear winner** for virtually all investors:
 - **Massively outperforms** by 1,000-1,200pp across all horizons
@@ -169,14 +169,14 @@ The added complexity of Optimum DCA (VWAP bands, volatility adjustments, dynamic
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 CryptoInvestor/
 ├── src/                    # Core implementation
 │   └── optimum_dca_analyzer.py
 ├── tools/                  # Analysis tools
-│   ├── balanced_rolling_analyzer.py ⭐ (recommended)
+│   ├── balanced_rolling_analyzer.py  (recommended)
 │   ├── duration_simulator.py
 │   ├── advanced_duration_analyzer.py
 │   └── comprehensive_comparison.py
@@ -196,12 +196,12 @@ CryptoInvestor/
 
 ---
 
-## 🔬 Analysis Tools Comparison
+##  Analysis Tools Comparison
 
 | Tool | Simulations | Statistical Power | Special Features | Best For |
 |------|-------------|------------------|------------------|----------|
-| **Paired Comparison** 🆕⭐ | 75-114 | **Highest** | Paired tests, correlation | **Investment decisions** |
-| **Enhanced Statistical** 🆕 | Varies | High | Block bootstrap, fat tails | **Risk analysis** |
+| **Paired Comparison**  | 75-114 | **Highest** | Paired tests, correlation | **Investment decisions** |
+| **Enhanced Statistical**  | Varies | High | Block bootstrap, fat tails | **Risk analysis** |
 | **Balanced Rolling** | 378 | Moderate | Risk metrics | Standard analysis |
 | **Duration Simulator** | 1,512 | Low | Maximum data | Pattern exploration |
 | **Non-Overlapping** | 18 | Low | Perfect independence | Academic rigor |
@@ -212,13 +212,13 @@ CryptoInvestor/
 
 ```
 Making investment decisions? (RECOMMENDED)
-  → paired_strategy_comparison.py ⭐⭐⭐
+  → paired_strategy_comparison.py 
 
 Analyzing risk and market regimes?
-  → enhanced_statistical_analyzer.py ⭐⭐
+  → enhanced_statistical_analyzer.py 
 
 Standard investment analysis?
-  → balanced_rolling_analyzer.py ⭐
+  → balanced_rolling_analyzer.py 
 
 Exploring historical patterns?
   → duration_simulator.py
@@ -234,7 +234,7 @@ Want comprehensive comparison?
 
 ---
 
-## 📊 Example Usage
+##  Example Usage
 
 ### Quick Analysis
 
@@ -281,7 +281,7 @@ analyzer.print_analysis_report(results)
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Run all tests
@@ -297,15 +297,15 @@ python scripts/run_tests.py --performance  # Performance tests
 ```
 
 **Test Coverage**:
-- ✅ 90 total tests, 100% pass rate
-- ✅ Core DCA validation tests
-- ✅ All analyzer tools fully tested
-- ✅ Statistical methods validated
-- ✅ Integration and performance tests
+-  90 total tests, 100% pass rate
+-  Core DCA validation tests
+-  All analyzer tools fully tested
+-  Statistical methods validated
+-  Integration and performance tests
 
 ---
 
-## 📚 Documentation
+##  Documentation
 
 | Document | Description |
 |----------|-------------|
@@ -319,7 +319,7 @@ python scripts/run_tests.py --performance  # Performance tests
 
 ---
 
-## 🎯 Recommended Workflow
+##  Recommended Workflow
 
 ### For Investment Analysis
 
@@ -352,7 +352,7 @@ python tools/comprehensive_comparison.py
 
 ---
 
-## 📊 Performance Metrics Explained
+##  Performance Metrics Explained
 
 ### Raw Returns
 - **Mean Return**: Average return across all periods
@@ -376,7 +376,7 @@ python tools/comprehensive_comparison.py
 
 ---
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Custom Budget and Dates
 
@@ -415,7 +415,7 @@ results = analyzer.run_comprehensive_analysis(
 
 ---
 
-## 🔧 Dependencies
+##  Dependencies
 
 ### Core Requirements
 ```
@@ -438,7 +438,7 @@ pip install -r requirements/dev.txt    # Everything
 
 ---
 
-## 📝 Citing This Work
+##  Citing This Work
 
 If you use this analysis in research, please cite:
 
@@ -453,13 +453,13 @@ And reference the methodology paper:
 
 ---
 
-## 🆕 What's New in v2.3
+##  What's New in v2.3
 
 ### Complete Test Suite Overhaul
-- ✅ **100% test pass rate** (90/90 tests passing)
-- ✅ **Comprehensive test coverage** for all analyzer tools
-- ✅ **Fixed all test failures** from 65% to 100% pass rate
-- ✅ **Production-ready** with full validation
+-  **100% test pass rate** (90/90 tests passing)
+-  **Comprehensive test coverage** for all analyzer tools
+-  **Fixed all test failures** from 65% to 100% pass rate
+-  **Production-ready** with full validation
 
 ### Previous Updates (v2.2)
 - Enhanced statistical tools with paired testing and block bootstrap
@@ -474,7 +474,7 @@ And reference the methodology paper:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions welcome! Please:
 
@@ -485,13 +485,13 @@ Contributions welcome! Please:
 
 ---
 
-## 📜 License
+##  License
 
 MIT License
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Original Optimum DCA Excel strategy concept
 - Statistical methodology based on quantitative finance best practices
@@ -499,7 +499,7 @@ MIT License
 
 ---
 
-## 📞 Support
+##  Support
 
 **Documentation**:
 - Tool Selection: [docs/guides/ANALYSIS_TOOL_GUIDE.md](docs/guides/ANALYSIS_TOOL_GUIDE.md)
@@ -514,6 +514,6 @@ MIT License
 
 **Version**: 2.3.0
 **Last Updated**: October 1, 2025
-**Test Status**: 90/90 tests passing (100% pass rate) ✅
-**Recommended Tool**: `paired_strategy_comparison.py` ⭐⭐⭐ (maximum statistical power)
+**Test Status**: 90/90 tests passing (100% pass rate) 
+**Recommended Tool**: `paired_strategy_comparison.py`  (maximum statistical power)
 **Key Insight**: Simple DCA significantly outperforms Optimum DCA across all horizons!

@@ -20,7 +20,7 @@ from advanced_duration_analyzer import AdvancedDurationAnalyzer
 def run_duration_simulator_analysis():
     """Extract key metrics from existing duration simulator results."""
     print("\n" + "="*80)
-    print("📊 LOADING DURATION SIMULATOR RESULTS")
+    print(" LOADING DURATION SIMULATOR RESULTS")
     print("="*80)
     
     try:
@@ -46,17 +46,17 @@ def run_duration_simulator_analysis():
                 'best_return': data['optimum_return_pct'].max()
             }
         
-        print(f"✅ Loaded {len(df)} simulation results")
+        print(f" Loaded {len(df)} simulation results")
         return results
         
     except FileNotFoundError:
-        print("❌ Duration simulator results not found. Run duration_simulator.py first.")
+        print(" Duration simulator results not found. Run duration_simulator.py first.")
         return {}
 
 def run_balanced_rolling_analysis():
     """Run balanced rolling analysis with monthly steps (v2.1 optimized)."""
     print("\n" + "="*80)
-    print("📊 RUNNING BALANCED ROLLING ANALYSIS (Monthly - v2.1)")
+    print(" RUNNING BALANCED ROLLING ANALYSIS (Monthly - v2.1)")
     print("="*80)
     
     analyzer = AdvancedDurationAnalyzer(
@@ -99,13 +99,13 @@ def run_balanced_rolling_analysis():
             'significant': data['comparison']['significance']['significant_at_5pct']
         }
     
-    print(f"✅ Completed {sum(r['n_simulations'] for r in results.values())} simulations")
+    print(f" Completed {sum(r['n_simulations'] for r in results.values())} simulations")
     return results
 
 def run_non_overlapping_analysis():
     """Run non-overlapping analysis."""
     print("\n" + "="*80)
-    print("📊 RUNNING NON-OVERLAPPING ANALYSIS")
+    print(" RUNNING NON-OVERLAPPING ANALYSIS")
     print("="*80)
     
     analyzer = AdvancedDurationAnalyzer(
@@ -147,7 +147,7 @@ def run_non_overlapping_analysis():
             'significant': data['comparison']['significance']['significant_at_5pct']
         }
     
-    print(f"✅ Completed {sum(r['n_simulations'] for r in results.values())} simulations")
+    print(f" Completed {sum(r['n_simulations'] for r in results.values())} simulations")
     return results
 
 def generate_comparison_report(duration_sim, balanced, non_overlapping):
@@ -176,7 +176,7 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
     report.append("\n2. BALANCED ROLLING (Monthly Steps - v2.1 OPTIMIZED)")
     report.append("   - Large data: 378 simulations (~30 effective)")
     report.append("   - Manageable autocorrelation: ~92% overlap")
-    report.append("   - Best for: Standard analysis with risk metrics ⭐ RECOMMENDED")
+    report.append("   - Best for: Standard analysis with risk metrics  RECOMMENDED")
     report.append("\n3. NON-OVERLAPPING (Perfect Independence)")
     report.append("   - Minimal data: 18 simulations")
     report.append("   - Zero autocorrelation: 0% overlap")
@@ -190,7 +190,7 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
         
         if duration in duration_sim:
             ds = duration_sim[duration]
-            report.append(f"\n📊 DURATION SIMULATOR (Weekly Rolling)")
+            report.append(f"\n DURATION SIMULATOR (Weekly Rolling)")
             report.append(f"   Simulations: {ds['n_simulations']:,} (≈{ds['n_effective']} effective)")
             report.append(f"   Optimum DCA:  {ds['optimum_mean']:>8.2f}% avg, {ds['optimum_median']:>8.2f}% median (σ={ds['optimum_std']:.2f}%)")
             report.append(f"   Simple DCA:   {ds['simple_mean']:>8.2f}% avg, {ds['simple_median']:>8.2f}% median (σ={ds['simple_std']:.2f}%)")
@@ -199,7 +199,7 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
         
         if duration in balanced:
             br = balanced[duration]
-            report.append(f"\n📊 BALANCED ROLLING (Monthly Steps - v2.1)")
+            report.append(f"\n BALANCED ROLLING (Monthly Steps - v2.1)")
             report.append(f"   Simulations: {br['n_simulations']:,} (≈{br['n_effective']} effective)")
             report.append(f"   Optimum DCA:  {br['optimum_mean']:>8.2f}% avg, {br['optimum_median']:>8.2f}% median (σ={br['optimum_std']:.2f}%)")
             report.append(f"   Simple DCA:   {br['simple_mean']:>8.2f}% avg, {br['simple_median']:>8.2f}% median (σ={br['simple_std']:.2f}%)")
@@ -211,11 +211,11 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
             report.append(f"      VaR (95%):     Optimum={br['optimum_var']:.2f}%, Simple={br['simple_var']:.2f}%")
             report.append(f"   Statistical Test:")
             report.append(f"      P-value: {br['p_value']:.4f}, Effect Size: {br['effect_size']:.3f}")
-            report.append(f"      Significant at 5%: {'YES ✅' if br['significant'] else 'NO ❌'}")
+            report.append(f"      Significant at 5%: {'YES ' if br['significant'] else 'NO '}")
         
         if duration in non_overlapping:
             no = non_overlapping[duration]
-            report.append(f"\n📊 NON-OVERLAPPING (Perfect Independence)")
+            report.append(f"\n NON-OVERLAPPING (Perfect Independence)")
             report.append(f"   Simulations: {no['n_simulations']:,} (all independent)")
             report.append(f"   Optimum DCA:  {no['optimum_mean']:>8.2f}% avg, {no['optimum_median']:>8.2f}% median (σ={no['optimum_std']:.2f}%)")
             report.append(f"   Simple DCA:   {no['simple_mean']:>8.2f}% avg, {no['simple_median']:>8.2f}% median (σ={no['simple_std']:.2f}%)")
@@ -227,10 +227,10 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
             report.append(f"      VaR (95%):     Optimum={no['optimum_var']:.2f}%, Simple={no['simple_var']:.2f}%")
             report.append(f"   Statistical Test:")
             report.append(f"      P-value: {no['p_value']:.4f}, Effect Size: {no['effect_size']:.3f}")
-            report.append(f"      Significant at 5%: {'YES ✅' if no['significant'] else 'NO ❌'}")
+            report.append(f"      Significant at 5%: {'YES ' if no['significant'] else 'NO '}")
         
         # Comparison across methods
-        report.append(f"\n   📈 METHOD COMPARISON:")
+        report.append(f"\n    METHOD COMPARISON:")
         if duration in duration_sim and duration in balanced and duration in non_overlapping:
             report.append(f"      Optimum Mean: Weekly={ds['optimum_mean']:.1f}%, Quarterly={br['optimum_mean']:.1f}%, Non-Overlap={no['optimum_mean']:.1f}%")
             report.append(f"      Simple Mean:  Weekly={ds['simple_mean']:.1f}%, Quarterly={br['simple_mean']:.1f}%, Non-Overlap={no['simple_mean']:.1f}%")
@@ -242,9 +242,9 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
     report.append("="*100)
     
     report.append("\n1. STATISTICAL SIGNIFICANCE:")
-    report.append("   ❌ NO statistically significant difference between Optimum and Simple DCA")
+    report.append("    NO statistically significant difference between Optimum and Simple DCA")
     report.append("      in any duration when using proper non-overlapping analysis")
-    report.append("   ⚠️  Weekly rolling results are misleading due to high autocorrelation")
+    report.append("     Weekly rolling results are misleading due to high autocorrelation")
     
     report.append("\n2. RISK-ADJUSTED PERFORMANCE:")
     report.append("   • Simple DCA generally has better Sharpe ratios (better risk-adjusted returns)")
@@ -255,7 +255,7 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
     report.append("   • Choice of methodology dramatically affects conclusions")
     report.append("   • Weekly rolling overstates Optimum's advantage")
     report.append("   • Non-overlapping provides most conservative estimates")
-    report.append("   • Quarterly rolling provides best balance ⭐")
+    report.append("   • Quarterly rolling provides best balance ")
     
     report.append("\n4. PRACTICAL RECOMMENDATIONS:")
     report.append("   For 1-2 Year Horizons:")
@@ -272,8 +272,8 @@ def generate_comparison_report(duration_sim, balanced, non_overlapping):
     report.append("      • Optimum DCA: Higher upside potential, better tail protection")
     
     report.append("\n5. WHICH ANALYSIS TO USE:")
-    report.append("   📊 Duration Simulator: Exploration, pattern finding, NOT statistical inference")
-    report.append("   ⭐ Balanced Rolling: Standard analysis, most practical (RECOMMENDED)")
+    report.append("    Duration Simulator: Exploration, pattern finding, NOT statistical inference")
+    report.append("    Balanced Rolling: Standard analysis, most practical (RECOMMENDED)")
     report.append("   🎓 Non-Overlapping: Academic papers, regulatory filings, maximum rigor")
     
     report.append("\n" + "="*100)
@@ -286,7 +286,7 @@ def main():
     """Generate comprehensive comparison report."""
     
     print("="*100)
-    print("🔬 COMPREHENSIVE DCA ANALYSIS COMPARISON")
+    print(" COMPREHENSIVE DCA ANALYSIS COMPARISON")
     print("="*100)
     print("\nThis will run all three analysis methods and generate a complete comparison.")
     print("Estimated time: ~2 minutes\n")
@@ -308,7 +308,7 @@ def main():
     with open(output_file, 'w') as f:
         f.write(report)
     
-    print(f"\n✅ Report saved to: {output_file}")
+    print(f"\n Report saved to: {output_file}")
     
     # Also print to console
     print("\n" + report)
@@ -359,7 +359,7 @@ def main():
     summary_df = pd.DataFrame(summary_data)
     summary_csv = "method_comparison_summary.csv"
     summary_df.to_csv(summary_csv, index=False)
-    print(f"✅ Summary CSV saved to: {summary_csv}")
+    print(f" Summary CSV saved to: {summary_csv}")
     
     return report
 
